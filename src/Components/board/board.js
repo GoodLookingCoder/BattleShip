@@ -36,46 +36,32 @@ const Board = () => {
                 setCarrierAxis(axis)
                 setCarrierStartPosition(n)
                 setSelectedShip("battleship")
-            }else{
-                alert("Invalid Position")
             }
          }else if (selectedShip==="battleship"){
-            if(isAllowed(n, 4)){
+            if(isAllowed(n, 4, axis)){
                 setBattleshipAxis(axis)
                 setBattleshipStartPosition(n) 
                 setSelectedShip("destroyer")
-            }else{
-                alert("Invalid Position")
             }
         }else if (selectedShip==="destroyer"){
-            if(isAllowed(n, 3)){
+            if(isAllowed(n, 3, axis)){
                 setDestroyerAxis(axis)
                 setDestroyerStartPosition(n) 
                 setSelectedShip("submarine")
-            }else{
-                alert("invalid")
             }
         }else if (selectedShip==="submarine"){
-            if(isAllowed(n, 3)){
+            if(isAllowed(n, 3, axis)){
                 setSubmarineAxis(axis)
                 setSubmarineStartPosition(n) 
                 setSelectedShip("patrol")
-            }else{
-                alert("invalid")
             }
         }else if(selectedShip==="patrol"){
-            if(isAllowed(n, 2)){
+            if(isAllowed(n, 2, axis)){
                 setPatrolAxis(axis)
                 setPatrolStartPosition(n) 
                 setSelectedShip("")
-            }else{
-                alert("invalid")
             }
         }
-    }
-
-    const handleCellHover = (n) => {
-        
     }
 
     return (<>
