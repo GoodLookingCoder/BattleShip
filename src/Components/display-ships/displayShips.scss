@@ -1,0 +1,10 @@
+.ships-container{
+    border: 1px solid ;
+    flex-basis: 40%;
+    padding: 20px;
+
+    .ship{
+        margin-bottom: 5px;
+        width: 15rem;
+    }
+}

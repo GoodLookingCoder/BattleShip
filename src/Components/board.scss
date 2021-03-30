@@ -1,6 +1,7 @@
 .boards-container{
     position: relative;
     width: 100%;
+    flex-basis: 60%;
 
     .board-container{
         position: absolute;
@@ -14,19 +15,13 @@
             display: grid;
             position: relative;
             margin: 0px auto;
-            grid-template-rows: repeat(10, 3rem);
-            grid-template-columns: repeat(10, 3rem);
+            grid-template-rows: repeat(10, 2.9rem);
+            grid-template-columns: repeat(10, 2.9rem);
             grid-template-areas: none;
             text-align: center;
             gap: 1px;
-        
-            .cell{
-                border: 1px solid gray;
-                height: 100%;
-                width: 100%;
-            }
-        
         }
+    
     }
 }
 

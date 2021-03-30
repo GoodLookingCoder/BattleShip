@@ -1,6 +1,6 @@
 import {getRowAndColumn} from "./utils"
 
-const Destroyer = ({startPosition, axis}) => {
+const Destroyer = ({startPosition, axis, hasDestroyerPLaced}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -15,7 +15,7 @@ const Destroyer = ({startPosition, axis}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 153 69' : '0 0 69 153'}
-                fill='skyblue'
+                fill={hasDestroyerPLaced ? 'skyblue' : "#aeebff"}
                 preserveAspectRatio='none'
             >
                 <path

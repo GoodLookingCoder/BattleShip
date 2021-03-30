@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Patrol = ({startPosition, axis}) => {
+const Patrol = ({startPosition, axis, hasPatrolPLaced}) => {
     return (<>
         {startPosition !== null&& <div
             style={{
@@ -15,7 +15,7 @@ const Patrol = ({startPosition, axis}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 112 60' : '0 0 60 112'}
-                fill="skyblue"
+                fill={hasPatrolPLaced ? 'skyblue' : "#aeebff"}
                 preserveAspectRatio='none'
             >
                 <path

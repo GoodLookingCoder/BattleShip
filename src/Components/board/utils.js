@@ -163,30 +163,36 @@ export const hoverStyles = (i, x, selectedShip, axis) => {
     }
 }
 
-export const isAllowed = (start, numOfPositions, axis) => {
+const isCollision = (placedShipLocations, currentShipLocations) => {
+    if(!placedShipLocations)return false
+    if(!currentShipLocations.filter(location => placedShipLocations.includes(location)).length) return false
+    return true
+}
+
+export const isAllowed = (start, numOfPositions, axis, shipLocations) => {
     if(numOfPositions === 5){
         if(axis==="x"){
-            if(Number(start.toString()[start.toString().length - 1]) < 6) return true
+            if(Number(start.toString()[start.toString().length - 1]) < 6 && !isCollision(shipLocations, [start, start+1, start+2,start+3,start+4])) return true
         }else {
-            if(start + 50 <= 109) return true
+            if(start + 50 <= 109 && !isCollision(shipLocations, [start, start+10, start+20,start+30,start+40])) return true
         }
     }else if(numOfPositions === 4){
         if(axis==="x"){
-            if(Number(start.toString()[start.toString().length - 1]) < 7) return true
+            if(Number(start.toString()[start.toString().length - 1]) < 7 && !isCollision(shipLocations, [start, start+1, start+2,start+3])) return true
         }else{
-            if(start + 40 <= 109) return true
+            if(start + 40 <= 109 && !isCollision(shipLocations, [start, start+10, start+20,start+30])) return true
         }
     }else if(numOfPositions === 3){
         if(axis==="x"){
-            if(Number(start.toString()[start.toString().length - 1]) < 8) return true
+            if(Number(start.toString()[start.toString().length - 1]) < 8 && !isCollision(shipLocations, [start, start+1, start+2])) return true
         }else{
-            if(start + 30 <= 109) return true
+            if(start + 30 <= 109 && !isCollision(shipLocations, [start, start+10, start+20])) return true
         }
     }else if(numOfPositions === 2){
         if(axis==="x"){
-            if(Number(start.toString()[start.toString().length - 1]) < 9) return true
+            if(Number(start.toString()[start.toString().length - 1]) < 9 && !isCollision(shipLocations, [start, start+1])) return true
         }else{
-            if(start + 20 <= 109) return true
+            if(start + 20 <= 109 && !isCollision(shipLocations, [start, start+10])) return true
         }
     }
 }

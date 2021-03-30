@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Carrier = ({startPosition, axis}) => {
+const Carrier = ({startPosition, axis, hasCarrierPlaced}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -15,7 +15,7 @@ const Carrier = ({startPosition, axis}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 299 95' : '0 0 95 299'}
-                fill='skyblue'
+                fill={hasCarrierPlaced ? 'skyblue' : "#aeebff"}
                 preserveAspectRatio='none'
             >
                 <path

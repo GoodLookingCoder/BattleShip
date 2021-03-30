@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Battleship = ({startPosition, axis}) => {
+const Battleship = ({startPosition, axis, hasBattleshipPLaced}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -15,7 +15,7 @@ const Battleship = ({startPosition, axis}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 302 98' : '0 0 98 302'}
-                fill='skyblue'
+                fill={hasBattleshipPLaced ? 'skyblue' : "#aeebff"}
                 preserveAspectRatio='none'
             >
                 <path
