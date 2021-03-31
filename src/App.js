@@ -4,6 +4,7 @@ import './App.css'
 
 import Placement from "./Components/placement/placement"
 import Battlefield from "./Components/battlefield/battlefield"
+import Stats from "./Components/stats/stats"
 
 function App() {
   const [stage, setStage] = useState("placement")
@@ -14,15 +15,15 @@ function App() {
     submarine: {start: null, axis: ""},
     patrol: {start: null, axis: ""}
   })
-
-  const [friendlyShipsLocations, setFriendlyShipsLocations] = useState([])
+  const [winner, setWinner] = useState("")
 
   return (
     <div className="App">
       <h1 className="header-title">BATTLESHIP</h1>
-      {stage==="placement"&&<Placement friendlyShipsLocations={friendlyShipsLocations} setFriendlyShipsLocations={setFriendlyShipsLocations} shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
-      {stage==="battle"&&<Battlefield friendlyShipsLocations={friendlyShipsLocations} setStage={setStage} shipsStartPosition={shipsStartPosition}/>}
-    </div>
+      {stage==="placement"&&<Placement  shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
+      {stage==="battle"&&<Battlefield  setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
+      {stage==="stats"&&<Stats winner={winner}/>}
+      </div>
   );
 }
 

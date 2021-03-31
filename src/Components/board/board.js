@@ -28,12 +28,11 @@ const Board = ({
     hasPatrolPLaced,
     setShipsStartPositions,
     shipsStartPosition,
-    shipLocations,
-    setShipLocations
 }) => {
     const [hoveredCell, setHoveredCell] = useState(null)
     const [isAllow, setIsAllow] = useState(true)
  
+    const [shipLocations, setShipLocations] = useState([])
     const [carrierStartPosition, setCarrierStartPosition] = useState(null)
     const [carrierAxis, setCarrierAxis] = useState("")
     const [battleshipStartPosition, setBattleshipStartPosition] = useState(null)

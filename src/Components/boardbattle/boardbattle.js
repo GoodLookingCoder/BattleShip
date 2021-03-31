@@ -14,18 +14,30 @@ import Cell from "../cell/cell"
  
 import {useState} from "react"
 
-const Boardbattle = ({shipsStartPosition, onFire, display, type, enemyFire, fireAi}) => {
+const Boardbattle = ({
+    shipsStartPosition, 
+    onFire, 
+    display, 
+    type, 
+    enemyFire, 
+    fireAi,
+    carrierSunk,
+    battleshipSunk,
+    destroyerSunk,
+    submarineSunk,
+    patrolSunk
+}) => {
 
 
     return (
         <div className="boards-container">
             <div className="board-container">
                 <div className="board-grid battle">
-                    <Carrier display={type==="enemy"?display.carrier:true} hasCarrierPlaced={true} startPosition = {shipsStartPosition.carrier.start} axis={shipsStartPosition.carrier.axis}/>
-                    <Battleship display={type==="enemy"?display.battleship:true} hasBattleshipPLaced={true} startPosition = {shipsStartPosition.battleship.start} axis={shipsStartPosition.battleship.axis}/>
-                    <Destroyer display={type==="enemy"?display.destroyer:true} hasDestroyerPLaced={true} startPosition = {shipsStartPosition.destroyer.start} axis={shipsStartPosition.destroyer.axis}/>
-                    <Submarine display={type==="enemy"?display.submarine:true} hasSubmarinePLaced={true} startPosition = {shipsStartPosition.submarine.start} axis={shipsStartPosition.submarine.axis}/>
-                    <Patrol display={type==="enemy"?display.patrol:true} hasPatrolPLaced={true} startPosition = {shipsStartPosition.patrol.start} axis={shipsStartPosition.patrol.axis}/>                    
+                    <Carrier sunk={carrierSunk} display={type==="enemy"?display.carrier:true} hasCarrierPlaced={true} startPosition = {shipsStartPosition.carrier.start} axis={shipsStartPosition.carrier.axis}/>
+                    <Battleship sunk={battleshipSunk} display={type==="enemy"?display.battleship:true} hasBattleshipPLaced={true} startPosition = {shipsStartPosition.battleship.start} axis={shipsStartPosition.battleship.axis}/>
+                    <Destroyer sunk={destroyerSunk} display={type==="enemy"?display.destroyer:true} hasDestroyerPLaced={true} startPosition = {shipsStartPosition.destroyer.start} axis={shipsStartPosition.destroyer.axis}/>
+                    <Submarine sunk={submarineSunk} display={type==="enemy"?display.submarine:true} hasSubmarinePLaced={true} startPosition = {shipsStartPosition.submarine.start} axis={shipsStartPosition.submarine.axis}/>
+                    <Patrol sunk={patrolSunk} display={type==="enemy"?display.patrol:true} hasPatrolPLaced={true} startPosition = {shipsStartPosition.patrol.start} axis={shipsStartPosition.patrol.axis}/>                    
                 </div>
             </div>
             <div className="board-container">

@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Submarine = ({startPosition, axis, hasSubmarinePLaced, display}) => {
+const Submarine = ({startPosition, axis, hasSubmarinePLaced, display, sunk}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -16,7 +16,7 @@ const Submarine = ({startPosition, axis, hasSubmarinePLaced, display}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 302 98' : '0 0 98 302'}
-                fill={hasSubmarinePLaced ? 'skyblue' : "#aeebff"}
+                fill={hasSubmarinePLaced ?  !sunk ? 'skyblue' : "gray"   : "#aeebff"}
                 preserveAspectRatio='none'
             >
                 <path
