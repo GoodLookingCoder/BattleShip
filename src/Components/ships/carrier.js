@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Carrier = ({startPosition, axis, hasCarrierPlaced}) => {
+const Carrier = ({startPosition, axis, hasCarrierPlaced, display}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -11,6 +11,7 @@ const Carrier = ({startPosition, axis, hasCarrierPlaced}) => {
             }}
         >
             <svg
+                display={display?"block": "none"}
                 xmlns='http://www.w3.org/2000/svg'
                 width='100%'
                 height='100%'

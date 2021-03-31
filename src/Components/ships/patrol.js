@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Patrol = ({startPosition, axis, hasPatrolPLaced}) => {
+const Patrol = ({startPosition, axis, hasPatrolPLaced, display}) => {
     return (<>
         {startPosition !== null&& <div
             style={{
@@ -11,6 +11,7 @@ const Patrol = ({startPosition, axis, hasPatrolPLaced}) => {
             }}
         >
             <svg
+                display={display?"block": "none"}
                 xmlns='http://www.w3.org/2000/svg'
                 width='100%'
                 height='100%'

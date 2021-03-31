@@ -15,12 +15,13 @@ function App() {
     patrol: {start: null, axis: ""}
   })
 
+  const [friendlyShipsLocations, setFriendlyShipsLocations] = useState([])
 
   return (
     <div className="App">
       <h1 className="header-title">BATTLESHIP</h1>
-      {stage==="placement"&&<Placement shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
-      {stage==="battle"&&<Battlefield setStage={setStage} shipsStartPosition={shipsStartPosition}/>}
+      {stage==="placement"&&<Placement friendlyShipsLocations={friendlyShipsLocations} setFriendlyShipsLocations={setFriendlyShipsLocations} shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
+      {stage==="battle"&&<Battlefield friendlyShipsLocations={friendlyShipsLocations} setStage={setStage} shipsStartPosition={shipsStartPosition}/>}
     </div>
   );
 }

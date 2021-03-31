@@ -27,12 +27,13 @@ const Board = ({
     hasSubmarinePLaced,
     hasPatrolPLaced,
     setShipsStartPositions,
-    shipsStartPosition
+    shipsStartPosition,
+    shipLocations,
+    setShipLocations
 }) => {
     const [hoveredCell, setHoveredCell] = useState(null)
     const [isAllow, setIsAllow] = useState(true)
  
-    const [shipLocations, setShipLocations] = useState([])
     const [carrierStartPosition, setCarrierStartPosition] = useState(null)
     const [carrierAxis, setCarrierAxis] = useState("")
     const [battleshipStartPosition, setBattleshipStartPosition] = useState(null)
@@ -48,6 +49,7 @@ const Board = ({
         if(selectedShip==="carrier"){
             if(isAllowed(n, 5, axis, shipLocations)){
                 if(axis==="x"){
+                    console.log(shipLocations)
                     setShipLocations([...shipLocations, n, n+1, n+2, n+3, n+4])
                     setShipsStartPositions({...shipsStartPosition, carrier: {start: n, axis: "x"}})
                 }
@@ -189,11 +191,11 @@ const Board = ({
         <div className="boards-container">
             <div className="board-container">
                 <div className="board-grid">
-                    <Carrier hasCarrierPlaced={hasCarrierPLaced} startPosition = {carrierStartPosition} axis={carrierAxis}/>
-                    <Battleship hasBattleshipPLaced={hasBattleshipPLaced} startPosition = {battleshipStartPosition} axis={battleshipAxis}/>
-                    <Destroyer hasDestroyerPLaced={hasDestroyerPLaced} startPosition = {destroyerStartPosition} axis={destroyerAxis}/>
-                    <Submarine hasSubmarinePLaced={hasSubmarinePLaced} startPosition = {submarineStartPosition} axis={submarineAxis}/>
-                    <Patrol hasPatrolPLaced={hasPatrolPLaced} startPosition = {patrolStartPosition} axis={patrolAxis}/>                    
+                    <Carrier display={true} hasCarrierPlaced={hasCarrierPLaced} startPosition = {carrierStartPosition} axis={carrierAxis}/>
+                    <Battleship display={true} hasBattleshipPLaced={hasBattleshipPLaced} startPosition = {battleshipStartPosition} axis={battleshipAxis}/>
+                    <Destroyer display={true} hasDestroyerPLaced={hasDestroyerPLaced} startPosition = {destroyerStartPosition} axis={destroyerAxis}/>
+                    <Submarine display={true} hasSubmarinePLaced={hasSubmarinePLaced} startPosition = {submarineStartPosition} axis={submarineAxis}/>
+                    <Patrol display={true} hasPatrolPLaced={hasPatrolPLaced} startPosition = {patrolStartPosition} axis={patrolAxis}/>                    
                 </div>
             </div>
             <div className="board-container">

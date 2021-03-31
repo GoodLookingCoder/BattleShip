@@ -6,7 +6,7 @@ import ShipsContainer from "../display-ships/displayShips"
 
 import "./placement.scss"
 
-const Placement = ({setStage, shipsStartPosition, setShipsStartPositions}) => {
+const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friendlyShipsLocations, setFriendlyShipsLocations}) => {
     const [axis, setAxis] = useState("x")
     const [selectedShip, setSelectedShip] = useState("")
 
@@ -57,6 +57,8 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions}) => {
                     axis={axis}
                     shipsStartPosition={shipsStartPosition}
                     setShipsStartPositions={setShipsStartPositions}
+                    shipLocations={friendlyShipsLocations}
+                    setShipLocations={setFriendlyShipsLocations}
                 />
             </div>
         </div>

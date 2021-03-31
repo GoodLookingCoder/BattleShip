@@ -1,6 +1,6 @@
 import {getRowAndColumn}from "./utils"
 
-const Battleship = ({startPosition, axis, hasBattleshipPLaced}) => {
+const Battleship = ({startPosition, axis, hasBattleshipPLaced, display}) => {
     return (<>
         {startPosition !== null && <div
             style={{
@@ -11,6 +11,7 @@ const Battleship = ({startPosition, axis, hasBattleshipPLaced}) => {
             }}
         >
             <svg
+                display={display?"block": "none"}
                 xmlns='http://www.w3.org/2000/svg'
                 width='100%'
                 height='100%'
