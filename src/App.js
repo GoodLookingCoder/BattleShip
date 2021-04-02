@@ -6,6 +6,8 @@ import Placement from "./Components/placement/placement"
 import Battlefield from "./Components/battlefield/battlefield"
 import Stats from "./Components/stats/stats"
 
+console.log([1,2,3,5].filter(x => ![1,2,3,4].includes(x)))
+
 function App() {
   const [stage, setStage] = useState("placement")
   const [shipsStartPosition, setShipsStartPositions] = useState({
