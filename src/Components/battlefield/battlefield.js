@@ -35,8 +35,11 @@ const fpatrolHits = []
 const computerShots = []
 let hitsOnTheGo = []
 
+console.log(computerShots)
+
 const Battlefield = ({shipsStartPosition, setWinner, setStage}) => {
-    const [aiStartPosition, setAiStartPositions] = useState({
+    console.log(computerShots)
+    const [aiStartPosition] = useState({
         carrier: {start: shipsLocations[0], axis: carrierA},
         battleship: {start: shipsLocations[5], axis: batteshipA},
         destroyer: {start: shipsLocations[9], axis: destroyerA},
@@ -108,8 +111,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage}) => {
     const [lastHit, setLastHit] = useState(null)
  
     const [firstShot, setFirstShot] = useState(1)
-
+    
     useEffect(()=>{
+        console.log(carrierSunk)
         if(carrierSunk && battleshipSunk && destroyerSunk && submarineSunk && patrolSunk){
             setWinner("Computer")
             setStage("stats")

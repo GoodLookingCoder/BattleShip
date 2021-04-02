@@ -4,6 +4,8 @@ import Board from "../board/board"
 import Axis from "../axis/axis"
 import ShipsContainer from "../display-ships/displayShips"
 
+import {generateRandomLocs} from "../battlefield/randomLocs"
+
 import "./placement.scss"
 
 const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friendlyShipsLocations, setFriendlyShipsLocations}) => {
@@ -15,6 +17,12 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
     const[hasDestroyerPLaced, setHasDestroyerPlaced] = useState(false)
     const[hasSubmarinePLaced, setHasSubmarinePlaced] = useState(false)
     const[hasPatrolPLaced, setHasPatrolPlaced] = useState(false)
+
+    const[randomLocs, setRandomLocs] = useState([])
+
+    const generateRFLocs = () => {
+        setRandomLocs(generateRandomLocs())
+    }
 
     useEffect(()=>{
         if(hasCarrierPLaced && hasBattleshipPLaced && hasDestroyerPLaced && hasSubmarinePLaced && hasPatrolPLaced){
@@ -40,6 +48,7 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
                     hasPatrolPLaced={hasPatrolPLaced}
                     selectedShip={selectedShip} 
                     setSelectedShip={setSelectedShip}
+                    generateRFLocs={generateRFLocs}
                 />
                 <Board 
                     hasCarrierPLaced={hasCarrierPLaced}
@@ -59,6 +68,7 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
                     setShipsStartPositions={setShipsStartPositions}
                     shipLocations={friendlyShipsLocations}
                     setShipLocations={setFriendlyShipsLocations}
+                    randomLocs={randomLocs}
                 />
             </div>
         </div>

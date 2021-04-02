@@ -7,7 +7,8 @@ const ShipsContainer = ({
     hasBattleshipPLaced,
     hasDestroyerPLaced,
     hasSubmarinePLaced,
-    hasPatrolPLaced
+    hasPatrolPLaced,
+    generateRFLocs
 }) => {
     return (
         <div className="ships-container">
@@ -126,6 +127,7 @@ const ShipsContainer = ({
                     </svg>
                 </div>
             </div>
+            <button className="randomin" onClick={generateRFLocs}>Random</button>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import Patrol from "../ships/patrol"
 
 import Cell from "../cell/cell"
  
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
 import "../board.scss"
 
@@ -28,6 +28,7 @@ const Board = ({
     hasPatrolPLaced,
     setShipsStartPositions,
     shipsStartPosition,
+    randomLocs
 }) => {
     const [hoveredCell, setHoveredCell] = useState(null)
     const [isAllow, setIsAllow] = useState(true)
@@ -185,6 +186,41 @@ const Board = ({
     const notAllowedStyles = (hoveredCell, i) => {
         if(!isAllow && hoveredCell === i) return {backgroundColor: "#80000078"}
     } 
+
+    useEffect(()=>{
+        if(randomLocs.length !== 0){
+            const carrierA = randomLocs[0] === randomLocs[1] - 1 ? "x" : "y" 
+            const batteshipA = randomLocs[5] === randomLocs[6] - 1 ? "x" : "y"  
+            const destroyerA = randomLocs[9] === randomLocs[10] - 1 ? "x" : "y" 
+            const submarineA = randomLocs[12] === randomLocs[13] - 1 ? "x" : "y" 
+            const patrolA = randomLocs[15] === randomLocs[16] - 1 ? "x" : "y" 
+
+            setCarrierStartPosition(randomLocs[0])
+            setCarrierAxis(carrierA)
+            setBattleshipStartPosition(randomLocs[5])
+            setBattleshipAxis(batteshipA)
+            setDestroyerStartPosition(randomLocs[9])
+            setDestroyerAxis(destroyerA)
+            setSubmarineStartPosition(randomLocs[12])
+            setSubmarineAxis(submarineA)
+            setPatrolStartPosition(randomLocs[15])
+            setPatrolAxis(patrolA)
+
+            setShipsStartPositions({
+                carrier: {start: randomLocs[0], axis: carrierA},
+                battleship: {start: randomLocs[5], axis: batteshipA},
+                destroyer: {start: randomLocs[9], axis: destroyerA},
+                submarine: {start: randomLocs[12], axis: submarineA},
+                patrol: {start: randomLocs[15], axis: patrolA},
+            })
+
+            setHasCarrierPlaced(true)
+            setHasBattleshipPlaced(true)
+            setHasDestroyerPlaced(true)
+            setHasSubmarinePlaced(true)
+            setHasPatrolPlaced(true)
+        }
+    }, [randomLocs])
 
     return (<>
         <div className="boards-container">

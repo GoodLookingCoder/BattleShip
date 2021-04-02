@@ -22,7 +22,7 @@ function App() {
       <h1 className="header-title">BATTLESHIP</h1>
       {stage==="placement"&&<Placement  shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
       {stage==="battle"&&<Battlefield  setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
-      {stage==="stats"&&<Stats winner={winner}/>}
+      {stage==="stats"&&<Stats setStage={setStage} winner={winner}/>}
       </div>
   );
 }
