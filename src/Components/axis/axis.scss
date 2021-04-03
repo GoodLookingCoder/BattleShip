@@ -1,11 +1,18 @@
 .axis{
     width: fit-content;
     border-style: none;
-    background-color: black;
-    color: aliceblue;
+    background-color: #0000009e;
+    color: #e0e1de;
     display: block;
-    margin: 20px auto;
-    padding: 15px 20px;
-    text-align: center;
+    padding: 10px 20px;
     border-radius: 3px;
+    font-size: 12px;
+    margin-right: 20px;
+    cursor: pointer;
+    outline: none;
+
+    &:hover{
+        background-color: #8c8c8c;
+        color: black;
+    }
 }

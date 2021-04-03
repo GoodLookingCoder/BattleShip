@@ -16,7 +16,7 @@ const Patrol = ({startPosition, axis, hasPatrolPLaced, display, sunk}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 112 60' : '0 0 60 112'}
-                fill={hasPatrolPLaced ?  !sunk ? 'skyblue' : "gray"   : "#aeebff"}
+                fill={hasPatrolPLaced ?  !sunk ? 'skyblue' : "gray"   : "#bdffff"}
                 preserveAspectRatio='none'
             >
                 <path

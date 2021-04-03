@@ -20,15 +20,15 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
 
     const[randomLocs, setRandomLocs] = useState([])
 
-    const generateRFLocs = () => {
-        setRandomLocs(generateRandomLocs())
-    }
-
     useEffect(()=>{
         if(hasCarrierPLaced && hasBattleshipPLaced && hasDestroyerPLaced && hasSubmarinePLaced && hasPatrolPLaced){
             setStage("battle") 
          }
     }, [hasCarrierPLaced, hasBattleshipPLaced, hasDestroyerPLaced, hasSubmarinePLaced, hasPatrolPLaced])
+
+    const generateRFLocs = () => {
+        setRandomLocs(generateRandomLocs())
+    }
 
     const changeAxis = () => {
         axis === "x" ? setAxis("y"): setAxis("x")
@@ -38,7 +38,6 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
     return (
         <div>
             <h2 className="header-subtitle">Place your ships captan Edel</h2>
-            <Axis axis={axis} changeAxis={changeAxis}/>
             <div className="board-ships-container">
                 <ShipsContainer 
                     hasCarrierPLaced={hasCarrierPLaced}
@@ -49,6 +48,8 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
                     selectedShip={selectedShip} 
                     setSelectedShip={setSelectedShip}
                     generateRFLocs={generateRFLocs}
+                    axis={axis}
+                    changeAxis={changeAxis}
                 />
                 <Board 
                     hasCarrierPLaced={hasCarrierPLaced}

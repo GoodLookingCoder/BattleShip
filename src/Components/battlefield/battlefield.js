@@ -1,40 +1,11 @@
 import {useState, useEffect} from 'react'
 
 import Boardbattle from "../boardbattle/boardbattle"
+import Coments from "../coments/coments"
 
 import {generateRandomLocs} from "./randomLocs"
 
 import "./battlefield.scss"
-
-
-/*const carrierA = shipsLocations[0] === shipsLocations[1] - 1 ? "x" : "y" 
-const batteshipA = shipsLocations[5] === shipsLocations[6] - 1 ? "x" : "y" 
-const destroyerA = shipsLocations[9] === shipsLocations[10] - 1 ? "x" : "y" 
-const submarineA = shipsLocations[12] === shipsLocations[13] - 1 ? "x" : "y" 
-const patrolA = shipsLocations[15] === shipsLocations[16] - 1 ? "x" : "y" 
-
-const carrierLocations = [shipsLocations[0], shipsLocations[1], shipsLocations[2], shipsLocations[3], shipsLocations[4]]
-const battleshipLocations = [shipsLocations[5], shipsLocations[6], shipsLocations[7], shipsLocations[8]]
-const destroyerLocations = [shipsLocations[9], shipsLocations[10], shipsLocations[11]]
-const submarineLocations = [shipsLocations[12], shipsLocations[13], shipsLocations[14]]
-const patrolLocations = [shipsLocations[15], shipsLocations[16]]
-
-const carrierHits = []
-const battleshipHits = []
-const destroyerHits = []
-const submarineHits = []
-const patrolHits = []
-
-const fcarrierHits = []
-const fbattleshipHits = []
-const fdestroyerHits = []
-const fsubmarineHits = []
-const fpatrolHits = []
-
-const computerShots = []
-let hitsOnTheGo = []
-
-console.log(computerShots)*/
 
 const Battlefield = ({shipsStartPosition, setWinner, setStage}) => {
     const [shipsLocations] = useState(generateRandomLocs())
@@ -417,12 +388,19 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage}) => {
         }
     }
 
-    return (
+    return (<>
+        <Coments />
         <div className="boards-battle-container">
-            <Boardbattle type="friendly" carrierSunk={carrierSunk} battleshipSunk={battleshipSunk} destroyerSunk={destroyerSunk} submarineSunk={submarineSunk} patrolSunk={patrolSunk} shipsStartPosition={shipsStartPosition} enemyFire={enemyFire} fireAi={fireAi} />
-            <Boardbattle type="enemy" carrierSunk={ecarrierSunk} battleshipSunk={ebattleshipSunk} destroyerSunk={edestroyerSunk} submarineSunk={esubmarineSunk} patrolSunk={epatrolSunk} display={displayAiShips} shipsStartPosition={aiStartPosition} locations={shipsLocations} onFire={onFire} />
+            <div className="test">
+                <h1 className="waters f">Friendly Waters</h1>
+                <Boardbattle type="friendly" carrierSunk={carrierSunk} battleshipSunk={battleshipSunk} destroyerSunk={destroyerSunk} submarineSunk={submarineSunk} patrolSunk={patrolSunk} shipsStartPosition={shipsStartPosition} enemyFire={enemyFire} fireAi={fireAi} />
+            </div>
+            <div className="test">
+                <h1 className="waters e">Enemy Waters</h1>
+                <Boardbattle type="enemy" carrierSunk={ecarrierSunk} battleshipSunk={ebattleshipSunk} destroyerSunk={edestroyerSunk} submarineSunk={esubmarineSunk} patrolSunk={epatrolSunk} display={displayAiShips} shipsStartPosition={aiStartPosition} locations={shipsLocations} onFire={onFire} />
+            </div>
         </div>
-    )
+    </>)
 }
 
 export default Battlefield

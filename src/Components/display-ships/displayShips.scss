@@ -1,21 +1,57 @@
 .ships-container{
-    border: 1px solid ;
-    flex-basis: 40%;
-    padding: 20px;
+    flex-basis: 48%;
+    align-self: start;
+    display: flex;
+    background-color: #00000038;
 
     .ship{
         margin-bottom: 5px;
-        width: 15rem;
+        width: 100%;
+        border-bottom: 1px solid #b5b5b526;
     }
     .randomin{
         width: fit-content;
         border-style: none;
-        background-color: black;
-        color: aliceblue;
+        background-color: #0000009e;
+        color: #e0e1de;
         display: block;
-        margin: 20px;
-        margin-left: 80%;
-        padding: 15px 20px;
+        padding: 10px 20px;
         border-radius: 3px;
+        font-size: 12px;
+        outline: none;
+        cursor: pointer;
+        &:hover{
+            background-color: #8c8c8c;
+            color: black;
+        }
+    }
+
+    .explination-fl{
+        flex-basis: 50%;
+        border: 1px solid #556269;
+        padding: 10px;
+        p{
+            font-size: 23px;
+            margin-bottom: 15px;
+            color: #8c8c8c;
+            border-bottom: 1px solid #b5b5b526;
+        }
+        .buttons-container{
+            display: flex;
+            margin-top: 30px;
+            justify-content: flex-end;
+        }
+ 
+    }
+
+    .ships-fl{
+        flex-basis: 50%;
+        border: 1px solid #556269;
+        padding: 10px;
+        
+        p{
+            font-size: 23px;
+            color: #8c8c8c;
+        }
     }
 }

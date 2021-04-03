@@ -4,8 +4,14 @@
   padding: 0;
 }
 
+html{
+  background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #252525;
+  background-blend-mode: multiply,multiply;
+}
+
 body{
-  background-color: darkgray;
+  height: 100%;
+  font-family: 'Bebas Neue', cursive;
 }
 
 .header-title{

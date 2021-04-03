@@ -16,7 +16,7 @@ const Carrier = ({startPosition, axis, hasCarrierPlaced, display, sunk}) => {
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 299 95' : '0 0 95 299'}
-                fill={hasCarrierPlaced ? !sunk ? 'skyblue' : "gray"  : "#aeebff"}
+                fill={hasCarrierPlaced ? !sunk ? 'skyblue' : "gray"  : "#bdffff"}
                 preserveAspectRatio='none'
             >
                 <path

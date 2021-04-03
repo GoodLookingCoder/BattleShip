@@ -1,4 +1,22 @@
 .boards-battle-container{
     display: flex;
     justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.test{
+    flex-basis: 48%;
+}
+
+.waters{
+    text-align: center;
+    color: #a4a5a6;
+
+    &.f{
+        color: #728ba5;
+    }
+
+    &.e{
+        color: #a57272;
+    }
 }

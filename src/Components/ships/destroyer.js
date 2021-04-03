@@ -16,7 +16,7 @@ const Destroyer = ({startPosition, axis, hasDestroyerPLaced, display, sunk}) => 
                 width='100%'
                 height='100%'
                 viewBox={axis === 'x' ? '0 0 153 69' : '0 0 69 153'}
-                fill={hasDestroyerPLaced ?  !sunk ? 'skyblue' : "gray"   : "#aeebff"}
+                fill={hasDestroyerPLaced ?  !sunk ? 'skyblue' : "gray"   : "#bdffff"}
                 preserveAspectRatio='none'
             >
                 <path
