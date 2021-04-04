@@ -40,7 +40,7 @@ function App() {
 
   const playBgSound = useCallback(
     (sound, customVolume) => {
-      if(volume){
+
         const newVol = customVolume || 0.5;
         if (!musicPlayer.current.paused) musicPlayer.current.pause();
         musicPlayer.current.src =
@@ -49,13 +49,20 @@ function App() {
             : sound === 'water'
             ? water
             : null;
+
         musicPlayer.current.load();
         musicPlayer.current.volume = newVol;
+      if(volume){
         musicPlayer.current.play();
       }
 		},
     [volume]
   );
+  useEffect(()=>{
+    if (musicPlayer.current.paused){
+      musicPlayer.current.play();
+    }
+  }, [volume])
 
     const playSound = useCallback(
       (sound, customVolume) => {
