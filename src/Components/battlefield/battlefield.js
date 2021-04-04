@@ -112,6 +112,8 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
     const [firstShot, setFirstShot] = useState(1)
     const [invalidShot, setInvalidShot] = useState(false)
 
+    const [comments, setComments] = useState("Awating orders, Capitan Edel")
+
     useEffect(()=>{
         console.log(carrierSunk)
         if(carrierSunk && battleshipSunk && destroyerSunk && submarineSunk && patrolSunk){
@@ -140,6 +142,10 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             computerShots.push(30)
             setFireAi(30)
         }else{*/
+        setTimeout(()=>{
+            setComments("Your opponent is aiming....")
+        }, 3000)
+
         setTimeout(()=>{
             if(lastHit===null){
                 if(firstHit!==null){
@@ -261,46 +267,53 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     }
                 }
             }
-        }, 4000)
+        }, 4500)
 
         //}
         if(shipsLocations.includes(n)){
+            setComments("You fire a Shot into enemys waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
             }, 1500)
             if(carrierHits.length !== 5 && carrierLocations.includes(n)){
                 setCarrierHits([...carrierHits, "hit"])
                 if(carrierHits.length===4){
+                    setComments("You fire a Shot into enemys waters.... You sunk their Carrier!!")
                     setDisplayAiShips({...displayAiShips, carrier: true}) 
                     seteCarrierSunk(true)
                 }
             }else if(battleshipHits.length !== 4 && battleshipLocations.includes(n)){
                 setBattleshipHits([...battleshipHits, "hit"])
                 if(battleshipHits.length===3){
+                    setComments("You fire a Shot into enemys waters.... You sunk their Battleship!!")
                     setDisplayAiShips({...displayAiShips, battleship: true})
                     seteBattleshipSunk(true)
                 }
             }else if(destroyerHits.length !== 3 && destroyerLocations.includes(n)){
                 setDestroyerHits([...destroyerHits, "hit"])
                 if(destroyerHits.length===2){
+                    setComments("You fire a Shot into enemys waters.... You sunk their Destroyer!!")
                     setDisplayAiShips({...displayAiShips, destroyer: true})
                     seteDestroyerSunk(true)
                 }
             }else if(submarineHits.length !== 3 && submarineLocations.includes(n)){
                 setSubmarineHits([...submarineHits, "hit"])
                 if(submarineHits.length===2){
+                    setComments("You fire a Shot into enemys waters.... You sunk their Submarine!!")
                     setDisplayAiShips({...displayAiShips, submarine: true})
                     seteSubmarineSunk(true)
                 }
             }else if(patrolHits.length !== 2 && patrolLocations.includes(n)){
                 setPatrolHits([...patrolHits, "hit"])        
                 if(patrolHits.length===1){
+                    setComments("You fire a Shot into enemys waters.... You sunk their Patrol!!")
                     setDisplayAiShips({...displayAiShips, patrol: true})
                     setePatrolSunk(true)
                 }
             }
             return "hit"
         }else{
+            setComments("You fire a shot into enemys waters .... and misses")
             setTimeout(()=>{
                 playSound("miss", 0.7)
             }, 1500)  
@@ -327,6 +340,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
         let lastShotSunkedShip = false
         playSound("shot", 0.7)
         if(friendlyShipsLocations.includes(fireAi)){
+            setComments("The enemy fire a shot into your waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
             }, 1500)
@@ -334,6 +348,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             if(fcarrierHits.length !== 5 && fcarrierLocations.includes(fireAi)){
                 setFcarrierHits([...fcarrierHits, "hit"])
                 if(fcarrierHits.length===4){
+                    setComments("The enemy fire a shot into your waters.... they sunk your Carrier")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fcarrierLocations.includes(x)))
@@ -345,6 +360,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             }else if(fbattleshipHits.length !== 4 && fbattleshipLocations.includes(fireAi)){
                 setFbattleshipHits([...fbattleshipHits, "hit"])
                 if(fbattleshipHits.length===3){
+                    setComments("The enemy fire a shot into your waters.... they sunk your Battleship")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fbattleshipLocations.includes(x)))
@@ -356,6 +372,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             }else if(fdestroyerHits.length !== 3 && fdestroyerLocations.includes(fireAi)){
                 setFdestroyerHits([...fdestroyerHits, "hit"])
                 if(fdestroyerHits.length===2){
+                    setComments("The enemy fire a shot into your waters.... they sunk your Destroyer")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fdestroyerLocations.includes(x)))
@@ -367,6 +384,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             }else if(fsubmarineHits.length !== 3 && fsubmarineLocations.includes(fireAi)){
                 setFsubmarineHits([...fsubmarineHits, "hit"])
                 if(fsubmarineHits.length===2){
+                    setComments("The enemy fire a shot into your waters.... they sunk your Submarine")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fsubmarineLocations.includes(x)))
@@ -378,6 +396,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
             }else if(fpatrolHits.length !== 2 && fpatrolLocations.includes(fireAi)){
                 setFpatrolHits([...fpatrolHits, "hit"])           
                 if(fpatrolHits.length===1){
+                    setComments("The enemy fire a shot into your waters.... they sunk your Patrol")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fpatrolLocations.includes(x)))
@@ -401,6 +420,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
         }else {
             setLastHit(null)
             setLastShotSunked(false)
+            setComments("The enemy fire a Shot into your waters .... and misses")
             setTimeout(()=>{
                 playSound("miss", 0.7)
             }, 1500)  
@@ -409,7 +429,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
     }
 
     return (<>
-        <Coments />
+        <Coments comment={comments}/>
         <div className="boards-battle-container">
             <div className="test">
                 <h1 className="waters f">Friendly Waters</h1>
