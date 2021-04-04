@@ -25,7 +25,9 @@ const Boardbattle = ({
     battleshipSunk,
     destroyerSunk,
     submarineSunk,
-    patrolSunk
+    patrolSunk,
+    invalidShot,
+    setInvalidShot
 }) => {
 
 
@@ -44,7 +46,7 @@ const Boardbattle = ({
                 <div className="board-grid">
                     {
                         arrToItarate.map((item, i)=>(
-                            <Cell type={type} key={i} onFire={onFire} enemyFire={enemyFire} fireAi={fireAi} index={i}/>
+                            <Cell type={type} invalidShot={invalidShot} setInvalidShot={setInvalidShot} key={i} onFire={onFire} enemyFire={enemyFire} fireAi={fireAi} index={i}/>
                         ))
                     }
                 </div>

@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, useRef, useEffect} from "react"
 
 import './App.css'
 
@@ -7,7 +7,11 @@ import Placement from "./Components/placement/placement"
 import Battlefield from "./Components/battlefield/battlefield"
 import Stats from "./Components/stats/stats"
 
-console.log([1,2,3,5].filter(x => ![1,2,3,4].includes(x)))
+import music from "./Components/sounds/music.mp3"
+import water from "./Components/sounds/water.mp3"
+import shot from "./Components/sounds/shot.mp3"
+import hit from "./Components/sounds/hit.mp3"
+import miss from "./Components/sounds/miss.mp3"
 
 function App() {
   const [stage, setStage] = useState("placement")
@@ -20,13 +24,77 @@ function App() {
   })
   const [winner, setWinner] = useState("")
 
+  const musicPlayer = useRef();
+  const soundPlayer = useRef();
+	const soundPlayer2 = useRef();
+
+  const playBgSound = (sound, customVolume) => {
+			const newVol = customVolume || 0.5;
+			if (!musicPlayer.current.paused) musicPlayer.current.pause();
+			musicPlayer.current.src =
+				sound === 'music'
+					? music
+					: sound === 'water'
+					? water
+					: null;
+			musicPlayer.current.load();
+			musicPlayer.current.volume = newVol;
+			musicPlayer.current.play();
+			
+		};
+
+    const playSound = (sound, customVolume) => {
+      const newVol = customVolume || 0.5;
+      let player = soundPlayer;
+      if (!soundPlayer.current.paused) {
+        player = soundPlayer2;
+      }
+      player.current.src =
+        sound === 'shot'
+          ? shot
+          : sound === 'miss'
+          ? miss
+          : sound === 'hit'
+          ? hit
+          : null;
+      player.current.load();
+      player.current.volume = newVol;
+      player.current.play();
+    }
+
+    const fadeOutMusic = () => {
+      const fadeOut = setInterval(() => {
+        if (musicPlayer.current.volume <= 0.04) {
+          musicPlayer.current.volume = 0;
+          clearInterval(fadeOut);
+        } else {
+          musicPlayer.current.volume = musicPlayer.current.volume - 0.03;
+        }
+      }, 30);
+    };
+
+    useEffect(()=>{
+      if(stage==="placement"){
+        playBgSound("music", 0.7)
+      }else if(stage==="battle"){
+        fadeOutMusic()
+        setTimeout(()=>{
+          playBgSound("water", 0.7)
+        }, 1000)
+      }
+
+    }, [stage])
+
   return (
     <div className="App">
       <Header />
       {stage==="placement"&&<Placement  shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
-      {stage==="battle"&&<Battlefield  setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
+      {stage==="battle"&&<Battlefield  playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
       {stage==="stats"&&<Stats setStage={setStage} winner={winner}/>}
-      </div>
+      <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
+      <audio ref={soundPlayer} />
+      <audio ref={soundPlayer2} />
+    </div>
   );
 }
 
