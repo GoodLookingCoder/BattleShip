@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect} from "react"
+import {useState, useRef, useEffect, useCallback} from "react"
 
 import './App.css'
 
@@ -6,6 +6,7 @@ import Header from "./Components/header/header"
 import Placement from "./Components/placement/placement"
 import Battlefield from "./Components/battlefield/battlefield"
 import Stats from "./Components/stats/stats"
+import Speaker from "./Components/speaker/speaker"
 
 import music from "./Components/sounds/music.mp3"
 import water from "./Components/sounds/water.mp3"
@@ -24,43 +25,60 @@ function App() {
   })
   const [winner, setWinner] = useState("")
 
+  const [volume, setVolume] = useState(true)
+
   const musicPlayer = useRef();
   const soundPlayer = useRef();
 	const soundPlayer2 = useRef();
 
-  const playBgSound = (sound, customVolume) => {
-			const newVol = customVolume || 0.5;
-			if (!musicPlayer.current.paused) musicPlayer.current.pause();
-			musicPlayer.current.src =
-				sound === 'music'
-					? music
-					: sound === 'water'
-					? water
-					: null;
-			musicPlayer.current.load();
-			musicPlayer.current.volume = newVol;
-			musicPlayer.current.play();
-			
-		};
+  const setVolumeProps = (value) => {
+		value
+			? (musicPlayer.current.volume = 0.5)
+			: (musicPlayer.current.volume = 0);
+		setVolume(value);
+	};
 
-    const playSound = (sound, customVolume) => {
-      const newVol = customVolume || 0.5;
-      let player = soundPlayer;
-      if (!soundPlayer.current.paused) {
-        player = soundPlayer2;
+  const playBgSound = useCallback(
+    (sound, customVolume) => {
+      if(volume){
+        const newVol = customVolume || 0.5;
+        if (!musicPlayer.current.paused) musicPlayer.current.pause();
+        musicPlayer.current.src =
+          sound === 'music'
+            ? music
+            : sound === 'water'
+            ? water
+            : null;
+        musicPlayer.current.load();
+        musicPlayer.current.volume = newVol;
+        musicPlayer.current.play();
       }
-      player.current.src =
-        sound === 'shot'
-          ? shot
-          : sound === 'miss'
-          ? miss
-          : sound === 'hit'
-          ? hit
-          : null;
-      player.current.load();
-      player.current.volume = newVol;
-      player.current.play();
-    }
+		},
+    [volume]
+  );
+
+    const playSound = useCallback(
+      (sound, customVolume) => {
+        if(volume){
+          const newVol = customVolume || 0.5;
+          let player = soundPlayer;
+          if (!soundPlayer.current.paused) {
+            player = soundPlayer2;
+          }
+          player.current.src =
+            sound === 'shot'
+              ? shot
+              : sound === 'miss'
+              ? miss
+              : sound === 'hit'
+              ? hit
+              : null;
+          player.current.load();
+          player.current.volume = newVol;
+          player.current.play();
+        }
+      },[volume]
+    ) 
 
     const fadeOutMusic = () => {
       const fadeOut = setInterval(() => {
@@ -88,6 +106,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Speaker volume={volume} setVolume={setVolumeProps}/>
       {stage==="placement"&&<Placement  shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
       {stage==="battle"&&<Battlefield  playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
       {stage==="stats"&&<Stats setStage={setStage} winner={winner}/>}
