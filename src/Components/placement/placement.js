@@ -8,7 +8,7 @@ import {generateRandomLocs} from "../battlefield/randomLocs"
 
 import "./placement.scss"
 
-const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friendlyShipsLocations, setFriendlyShipsLocations}) => {
+const Placement = ({setStage, name, shipsStartPosition, setShipsStartPositions, friendlyShipsLocations, setFriendlyShipsLocations}) => {
     const [axis, setAxis] = useState("x")
     const [selectedShip, setSelectedShip] = useState("")
 
@@ -20,9 +20,12 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
 
     const[randomLocs, setRandomLocs] = useState([])
 
+    const [fadeOutAnim, setFadeOutAnim] = useState(false)
+
     useEffect(()=>{
         if(hasCarrierPLaced && hasBattleshipPLaced && hasDestroyerPLaced && hasSubmarinePLaced && hasPatrolPLaced){
-            setStage("battle") 
+            setFadeOutAnim(true)
+            setTimeout(()=>setStage("battle"), 1900) 
          }
     }, [hasCarrierPLaced, hasBattleshipPLaced, hasDestroyerPLaced, hasSubmarinePLaced, hasPatrolPLaced])
 
@@ -36,8 +39,11 @@ const Placement = ({setStage, shipsStartPosition, setShipsStartPositions, friend
     
 
     return (
-        <div>
-            <h2 className="header-subtitle">Place your ships captan Edel</h2>
+        <div 
+            className="placement-cont"
+            style={fadeOutAnim? {animation: " 2s ease 0s 1 normal none running fadeout"}: null}      
+        >
+            <h2 className="header-subtitle">Place your ships captan {name}</h2>
             <div className="board-ships-container">
                 <ShipsContainer 
                     hasCarrierPLaced={hasCarrierPLaced}

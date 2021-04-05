@@ -7,7 +7,7 @@ import {generateRandomLocs} from "./randomLocs"
 
 import "./battlefield.scss"
 
-const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
+const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner,name}) => {
     const [shipsLocations] = useState(generateRandomLocs())
     
     const [carrierA] = useState(shipsLocations[0] === shipsLocations[1] - 1 ? "x" : "y" )
@@ -112,164 +112,40 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
     const [firstShot, setFirstShot] = useState(1)
     const [invalidShot, setInvalidShot] = useState(false)
 
-    const [comments, setComments] = useState("Awating orders, Capitan Edel")
+    const [fadeOutAnim, setFadeOutAnim] = useState(false)
+    const [comments, setComments] = useState(`Awating orders, Capitan ${name}`)
+
+    const [sunkedShipsList, setSunkedShipsList] = useState([])
 
     useEffect(()=>{
         console.log(carrierSunk)
         if(carrierSunk && battleshipSunk && destroyerSunk && submarineSunk && patrolSunk){
             setWinner("Computer")
-            setStage("stats")
+            setTimeout(()=>setFadeOutAnim(true), 3000)
+            setTimeout(()=>setStage("stats"), 4900) 
         }
     }, [carrierSunk,battleshipSunk,destroyerSunk,submarineSunk,patrolSunk])
 
     useEffect(()=>{
+        console.log("we just sunk a ship")
         if(ecarrierSunk && ebattleshipSunk && edestroyerSunk && esubmarineSunk && epatrolSunk){
+ 
             setWinner("Player")
-            setStage("stats")
+            setTimeout(()=>setFadeOutAnim(true), 3000)
+            
+            setTimeout(()=>setStage("stats"), 4900) 
         }
     }, [ecarrierSunk,ebattleshipSunk,edestroyerSunk,esubmarineSunk,epatrolSunk])
 
     const onFire = (n) => {
+        let noYouCantShot;
+        let vtr;
+        if(!winner){
         setFirstShot(firstShot + 1)
         playSound("shot", 0.7)
-        console.log(firstHit)
-        console.log(lastHit)
 
-        /*if(firstShot===1){
-            computerShots.push(87)
-            setFireAi(87)
-        }else if(firstShot===89){
-            computerShots.push(30)
-            setFireAi(30)
-        }else{*/
-        setTimeout(()=>{
-            setComments("Your opponent is aiming....")
-        }, 3000)
-
-        setTimeout(()=>{
-            if(lastHit===null){
-                if(firstHit!==null){
-                    let csh
-                    if(Number(firstHit.toString()[firstHit.toString().length - 1]) !== 9 && !computerShots.includes(firstHit + 1)){
-                        csh = firstHit + 1;
-                        setComputerShots([...computerShots, csh])
-                        setLastHit(csh)
-                        setFireAi(csh)
-                    }else if(Number(firstHit.toString().length) !== 1 && !computerShots.includes(firstHit - 10)){
-                        csh = firstHit - 10;
-                        setComputerShots([...computerShots, csh])
-                        setLastHit(csh)
-                        setFireAi(csh)
-                    }else if(firstHit + 10 <= 100 && !computerShots.includes(firstHit + 10)){
-                        csh = firstHit + 10;
-                        setComputerShots([...computerShots, csh])
-                        setLastHit(csh)
-                        setFireAi(csh)
-                    }
-                }else{
-                    let rnm = Math.floor(Math.random() * 100)
+        //player
     
-                    while(computerShots.includes(rnm)){
-                        rnm = Math.floor(Math.random() * 100)
-                    }
-                    setComputerShots([...computerShots, rnm])
-         
-                    setFireAi(rnm)
-                }
-            }else{
-                let csh;
-                if(lastHit + 10 === firstHit || lastHit + 20 === firstHit || lastHit + 30 === firstHit || lastHit - 10 === firstHit || lastHit - 20 === firstHit || lastHit - 30 === firstHit){
-                    console.log("verticall trying")
-                    if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
-                        csh = lastHit - 10;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-                    }else{
-                        console.log("no up ")
-                        if((computerShots.includes(lastHit + 10) || lastHit + 10 >= 100) && (computerShots.includes(firstHit + 10) || firstHit + 10 >= 100)){
-                            console.log("Aleatory sorry no othe option")
-                            console.log("a")
-                            
-                            let rnm = Math.floor(Math.random() * 100)
-    
-                            while(computerShots.includes(rnm)){
-                                rnm = Math.floor(Math.random() * 100)
-                            }
-                            setComputerShots([...computerShots, requestAnimationFrame])
-                 
-                            setFireAi(rnm)
-                        }else if(computerShots.includes(lastHit + 10) || lastHit + 10 >= 100 ){
-                            console.log("b")
-                            csh = firstHit + 10;
-                            setComputerShots([...computerShots, csh])
-                            setFireAi(csh)
-                        }else{
-                            console.log("c")
-                            csh = lastHit + 10;
-                            setComputerShots([...computerShots, csh])
-                            setFireAi(csh)
-                        }
-                    }
-                }else if(lastHit + 1 === firstHit || lastHit + 2 === firstHit || lastHit + 3 === firstHit || lastHit - 1 === firstHit || lastHit - 2 === firstHit || lastHit - 3 === firstHit){
-                    if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 0 && !computerShots.includes(lastHit - 1)){
-                        
-                        csh = lastHit - 1;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-    
-                    }else{
-                        if((computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9) && (computerShots.includes(firstHit + 1) || Number(firstHit.toString()[firstHit.toString().length - 1]) === 9)){
-                            console.log("Aleatory sorry no othe option")
-                            let rnm = Math.floor(Math.random() * 100)
-    
-                            while(computerShots.includes(rnm)){
-                                rnm = Math.floor(Math.random() * 100)
-                            }
-                            setComputerShots([...computerShots, rnm])
-                 
-                            setFireAi(rnm)
-                        }else if(computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9){
-                            csh = firstHit + 1;
-                            setComputerShots([...computerShots, csh])
-                            setFireAi(csh)
-                        }else {
-                            csh = lastHit + 1;
-                            setComputerShots([...computerShots, csh])
-                            setFireAi(csh)
-                        }
-                    }
-                }else{
-                    if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 0 && !computerShots.includes(lastHit - 1)){
-                        csh = lastHit - 1;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-                    }else if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 9 && !computerShots.includes(lastHit + 1)){
-                        csh = lastHit + 1;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-                    }else if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
-                        csh = lastHit - 10;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-                    }else if(lastHit + 10 <= 100 && !computerShots.includes(lastHit + 10)){
-                        csh = lastHit + 10;
-                        setComputerShots([...computerShots, csh])
-                        setFireAi(csh)
-                    }else{
-                        let rnm = Math.floor(Math.random() * 100)
-    
-                        while(computerShots.includes(rnm)){
-                            rnm = Math.floor(Math.random() * 100)
-                        }
-                        setComputerShots([...computerShots, csh])
-            
-                        setFireAi(rnm)
-                    }
-                }
-            }
-        }, 4500)
-
-        //}
         if(shipsLocations.includes(n)){
             setComments("You fire a Shot into enemys waters.... and its a Hit!!")
             setTimeout(()=>{
@@ -279,47 +155,199 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                 setCarrierHits([...carrierHits, "hit"])
                 if(carrierHits.length===4){
                     setComments("You fire a Shot into enemys waters.... You sunk their Carrier!!")
-                    setDisplayAiShips({...displayAiShips, carrier: true}) 
+                    setTimeout(()=>{
+                        setDisplayAiShips({...displayAiShips, carrier: true}) 
+                    }, 1600)
                     seteCarrierSunk(true)
+                    setSunkedShipsList([...sunkedShipsList, "sunked"])
+                    if(sunkedShipsList.length===4) noYouCantShot=true
                 }
             }else if(battleshipHits.length !== 4 && battleshipLocations.includes(n)){
                 setBattleshipHits([...battleshipHits, "hit"])
                 if(battleshipHits.length===3){
                     setComments("You fire a Shot into enemys waters.... You sunk their Battleship!!")
-                    setDisplayAiShips({...displayAiShips, battleship: true})
+                    setTimeout(()=>{
+                        setDisplayAiShips({...displayAiShips, battleship: true})
+                    }, 1600)
                     seteBattleshipSunk(true)
+                    setSunkedShipsList([...sunkedShipsList, "sunked"])
+                    if(sunkedShipsList.length===4) noYouCantShot=true
                 }
             }else if(destroyerHits.length !== 3 && destroyerLocations.includes(n)){
                 setDestroyerHits([...destroyerHits, "hit"])
                 if(destroyerHits.length===2){
                     setComments("You fire a Shot into enemys waters.... You sunk their Destroyer!!")
-                    setDisplayAiShips({...displayAiShips, destroyer: true})
+                    setTimeout(()=>{
+                        setDisplayAiShips({...displayAiShips, destroyer: true})
+                    }, 1600)
                     seteDestroyerSunk(true)
+                    setSunkedShipsList([...sunkedShipsList, "sunked"])
+                    if(sunkedShipsList.length===4) noYouCantShot=true
                 }
             }else if(submarineHits.length !== 3 && submarineLocations.includes(n)){
                 setSubmarineHits([...submarineHits, "hit"])
                 if(submarineHits.length===2){
                     setComments("You fire a Shot into enemys waters.... You sunk their Submarine!!")
-                    setDisplayAiShips({...displayAiShips, submarine: true})
+                    setTimeout(()=>{
+                        setDisplayAiShips({...displayAiShips, submarine: true})
+                    }, 1600)
                     seteSubmarineSunk(true)
+                    setSunkedShipsList([...sunkedShipsList, "sunked"])
+                    if(sunkedShipsList.length===4) noYouCantShot=true
                 }
             }else if(patrolHits.length !== 2 && patrolLocations.includes(n)){
                 setPatrolHits([...patrolHits, "hit"])        
                 if(patrolHits.length===1){
                     setComments("You fire a Shot into enemys waters.... You sunk their Patrol!!")
-                    setDisplayAiShips({...displayAiShips, patrol: true})
+                    setTimeout(()=>{
+                        setDisplayAiShips({...displayAiShips, patrol: true})
+                    }, 1600)
                     setePatrolSunk(true)
+                    setSunkedShipsList([...sunkedShipsList, "sunked"])
+                    if(sunkedShipsList.length===4) noYouCantShot=true
                 }
             }
-            return "hit"
+            vtr = "hit"
         }else{
             setComments("You fire a shot into enemys waters .... and misses")
             setTimeout(()=>{
                 playSound("miss", 0.7)
             }, 1500)  
-            return "miss"
+            vtr = "miss"
         } 
-    }
+        }
+
+        //computer ai
+        if(!noYouCantShot && !winner){
+            setTimeout(()=>{
+                setComments("Your opponent is aiming....")
+            }, 3000)
+
+            setTimeout(()=>{
+                if(lastHit===null){
+                    if(firstHit!==null){
+                        let csh
+                        if(Number(firstHit.toString()[firstHit.toString().length - 1]) !== 9 && !computerShots.includes(firstHit + 1)){
+                            csh = firstHit + 1;
+                            setComputerShots([...computerShots, csh])
+                            setLastHit(csh)
+                            setFireAi(csh)
+                        }else if(Number(firstHit.toString().length) !== 1 && !computerShots.includes(firstHit - 10)){
+                            csh = firstHit - 10;
+                            setComputerShots([...computerShots, csh])
+                            setLastHit(csh)
+                            setFireAi(csh)
+                        }else if(firstHit + 10 <= 100 && !computerShots.includes(firstHit + 10)){
+                            csh = firstHit + 10;
+                            setComputerShots([...computerShots, csh])
+                            setLastHit(csh)
+                            setFireAi(csh)
+                        }
+                    }else{
+                        let rnm = Math.floor(Math.random() * 100)
+        
+                        while(computerShots.includes(rnm)){
+                            rnm = Math.floor(Math.random() * 100)
+                        }
+                        setComputerShots([...computerShots, rnm])
+            
+                        setFireAi(rnm)
+                    }
+                }else{
+                    let csh;
+                    if(lastHit + 10 === firstHit || lastHit + 20 === firstHit || lastHit + 30 === firstHit || lastHit - 10 === firstHit || lastHit - 20 === firstHit || lastHit - 30 === firstHit){
+                        console.log("verticall trying")
+                        if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
+                            csh = lastHit - 10;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+                        }else{
+                            console.log("no up ")
+                            if((computerShots.includes(lastHit + 10) || lastHit + 10 >= 100) && (computerShots.includes(firstHit + 10) || firstHit + 10 >= 100)){
+                                console.log("Aleatory sorry no othe option")
+                                console.log("a")
+                                
+                                let rnm = Math.floor(Math.random() * 100)
+        
+                                while(computerShots.includes(rnm)){
+                                    rnm = Math.floor(Math.random() * 100)
+                                }
+                                setComputerShots([...computerShots, requestAnimationFrame])
+                    
+                                setFireAi(rnm)
+                            }else if(computerShots.includes(lastHit + 10) || lastHit + 10 >= 100 ){
+                                console.log("b")
+                                csh = firstHit + 10;
+                                setComputerShots([...computerShots, csh])
+                                setFireAi(csh)
+                            }else{
+                                console.log("c")
+                                csh = lastHit + 10;
+                                setComputerShots([...computerShots, csh])
+                                setFireAi(csh)
+                            }
+                        }
+                    }else if(lastHit + 1 === firstHit || lastHit + 2 === firstHit || lastHit + 3 === firstHit || lastHit - 1 === firstHit || lastHit - 2 === firstHit || lastHit - 3 === firstHit){
+                        if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 0 && !computerShots.includes(lastHit - 1)){
+                            
+                            csh = lastHit - 1;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+        
+                        }else{
+                            if((computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9) && (computerShots.includes(firstHit + 1) || Number(firstHit.toString()[firstHit.toString().length - 1]) === 9)){
+                                console.log("Aleatory sorry no othe option")
+                                let rnm = Math.floor(Math.random() * 100)
+        
+                                while(computerShots.includes(rnm)){
+                                    rnm = Math.floor(Math.random() * 100)
+                                }
+                                setComputerShots([...computerShots, rnm])
+                    
+                                setFireAi(rnm)
+                            }else if(computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9){
+                                csh = firstHit + 1;
+                                setComputerShots([...computerShots, csh])
+                                setFireAi(csh)
+                            }else {
+                                csh = lastHit + 1;
+                                setComputerShots([...computerShots, csh])
+                                setFireAi(csh)
+                            }
+                        }
+                    }else{
+                        if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 0 && !computerShots.includes(lastHit - 1)){
+                            csh = lastHit - 1;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+                        }else if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 9 && !computerShots.includes(lastHit + 1)){
+                            csh = lastHit + 1;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+                        }else if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
+                            csh = lastHit - 10;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+                        }else if(lastHit + 10 <= 100 && !computerShots.includes(lastHit + 10)){
+                            csh = lastHit + 10;
+                            setComputerShots([...computerShots, csh])
+                            setFireAi(csh)
+                        }else{
+                            let rnm = Math.floor(Math.random() * 100)
+        
+                            while(computerShots.includes(rnm)){
+                                rnm = Math.floor(Math.random() * 100)
+                            }
+                            setComputerShots([...computerShots, csh])
+                
+                            setFireAi(rnm)
+                        }
+                    }
+                }
+            }, 4500)
+        }
+        return vtr
+   }//end
 
   
     useEffect(()=>{
@@ -353,7 +381,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fcarrierLocations.includes(x)))
 
-                    setCarrierSunk(true)
+                    setTimeout(()=>{
+                        setCarrierSunk(true)                        
+                    }, 1600)
                 }else{
                     setLastShotSunked(false)
                 }
@@ -365,7 +395,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fbattleshipLocations.includes(x)))
  
-                    setBattleshipSunk(true)
+                    setTimeout(()=>{
+                        setBattleshipSunk(true)                        
+                    }, 1600)
                 }else{
                     setLastShotSunked(false)
                 }
@@ -377,7 +409,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fdestroyerLocations.includes(x)))
   
-                    setDestroyerSunk(true)
+                    setTimeout(()=>{
+                        setDestroyerSunk(true)                        
+                    }, 1600)
                 }else{
                     setLastShotSunked(false)
                 }
@@ -389,7 +423,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fsubmarineLocations.includes(x)))
    
-                    setSubmarineSunk(true)
+                    setTimeout(()=>{
+                        setSubmarineSunk(true)                       
+                    }, 1600)
                 }else{
                     setLastShotSunked(false)
                 }
@@ -401,7 +437,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fpatrolLocations.includes(x)))
      
-                    setPatrolSunk(true)
+                    setTimeout(()=>{
+                        setPatrolSunk(true)                        
+                    }, 1600)
                 }else{
                     setLastShotSunked(false)
                 }
@@ -428,8 +466,12 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
         }
     }
 
-    return (<>
-        <Coments comment={comments}/>
+    return (
+    <div 
+        className="battle-cont"
+        style={fadeOutAnim? {animation: " 2s ease 0s 1 normal none running fadeout"}: null}
+    >
+        <Coments comment={comments} />
         <div className="boards-battle-container">
             <div className="test">
                 <h1 className="waters f">Friendly Waters</h1>
@@ -440,7 +482,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound}) => {
                 <Boardbattle type="enemy" invalidShot={invalidShot} setInvalidShot={setInvalidShot} carrierSunk={ecarrierSunk} battleshipSunk={ebattleshipSunk} destroyerSunk={edestroyerSunk} submarineSunk={esubmarineSunk} patrolSunk={epatrolSunk} display={displayAiShips} shipsStartPosition={aiStartPosition} locations={shipsLocations} onFire={onFire} />
             </div>
         </div>
-    </>)
+    </div>)
 }
 
 export default Battlefield

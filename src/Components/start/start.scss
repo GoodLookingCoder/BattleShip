@@ -1,0 +1,67 @@
+.player-info{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 80px;
+    animation: 6s ease-in 0s 1 normal none running fadein;
+
+    & label, & input, & button{
+        display: block;
+        margin: auto;
+    }
+
+    & label{
+        font-size: 50px;
+        color: #d0d0ce;
+    }
+
+    & input{
+        border-style: none;
+        padding: 15px 0;
+        font-size: 33px;
+        width: 317px;
+        font-family: 'Bebas Neue';
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 35px;
+        background-color: #0a0a0a96;
+        color: #d0d0ce;
+        outline: none;
+    }
+
+    & button {
+        width: fit-content;
+        border-style: none;
+        background-color: #0000009e;
+        color: #e0e1de;
+        display: block;
+        padding: 15px 80px;
+        border-radius: 3px;
+        font-size: 25px;
+        font-family: 'Bebas Neue';
+        cursor: pointer;
+        outline: none;
+    
+        &:hover{
+            background-color: #8c8c8c;
+            color: black;
+        }
+    }
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}

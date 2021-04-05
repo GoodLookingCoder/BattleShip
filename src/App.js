@@ -5,6 +5,7 @@ import './App.css'
 import Header from "./Components/header/header"
 import Placement from "./Components/placement/placement"
 import Battlefield from "./Components/battlefield/battlefield"
+import Start from "./Components/start/start"
 import Stats from "./Components/stats/stats"
 import Speaker from "./Components/speaker/speaker"
 
@@ -15,7 +16,8 @@ import hit from "./Components/sounds/hit.mp3"
 import miss from "./Components/sounds/miss.mp3"
 
 function App() {
-  const [stage, setStage] = useState("placement")
+  const [stage, setStage] = useState("start")
+  const [name, setName] = useState("")
   const [shipsStartPosition, setShipsStartPositions] = useState({
     carrier: {start: null, axis: ""},
     battleship: {start: null, axis: ""},
@@ -58,6 +60,28 @@ function App() {
 		},
     [volume]
   );
+
+  
+  useEffect(()=>{
+    if(stage==="start"){
+      console.log("helo")
+      if(musicPlayer.current.paused){
+        playBgSound("music", 0.7)
+      }
+    }else if(stage==="battle"){
+      fadeOutMusic()
+      setTimeout(()=>{
+        playBgSound("water", 0.7)
+      }, 1000)
+    }else if(stage === "stats"){
+      fadeOutMusic()
+      setTimeout(()=>{
+        playBgSound("music", 0.7)
+      }, 1000)
+    }
+  }, [stage])
+
+
   useEffect(()=>{
     if (musicPlayer.current.paused){
       musicPlayer.current.play();
@@ -98,30 +122,19 @@ function App() {
       }, 30);
     };
 
-    useEffect(()=>{
-      if(stage==="placement"){
-        playBgSound("music", 0.7)
-      }else if(stage==="battle"){
-        fadeOutMusic()
-        setTimeout(()=>{
-          playBgSound("water", 0.7)
-        }, 1000)
-      }
-
-    }, [stage])
-
   return (
     <div className="App">
-      <Header />
-      <Speaker volume={volume} setVolume={setVolumeProps}/>
-      {stage==="placement"&&<Placement  shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
-      {stage==="battle"&&<Battlefield  playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
-      {stage==="stats"&&<Stats setStage={setStage} winner={winner}/>}
+      <Header stage={stage}/>
+      <Speaker volume={volume} setVolume={setVolumeProps} />
+      {stage==="start"&&<Start name={name} setName={setName} setStage={setStage} />}
+      {stage==="placement"&&<Placement name={name} shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
+      {stage==="battle"&&<Battlefield winner={winner} name={name} playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
+      {stage==="stats"&&<Stats setStage={setStage} winner={winner} setWinner={setWinner}/>}
       <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
       <audio ref={soundPlayer} />
       <audio ref={soundPlayer2} />
     </div>
-  );
+  )
 }
 
 export default App

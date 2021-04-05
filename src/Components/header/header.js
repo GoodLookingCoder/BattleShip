@@ -1,9 +1,9 @@
 import logo from "./bs_logo.png"
 import "./header.scss"
 
-const header = () => {
+const header = ({stage}) => {
     return (
-        <div className="header">
+        <div className={`header ${stage==="start"&&"big"}`}>
             <img src={logo}/>
         </div>
     )

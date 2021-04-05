@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Stats = ({winner, setStage}) => {
+const Stats = ({winner, setWinner,setStage}) => {
     return (
         <div>
             {winner}
-            <button onClick={()=>setStage("placement")}>Play Again</button>
+            <button onClick={()=>{setStage("start"); setWinner("")}}>Play Again</button>
         </div>
     )
 }

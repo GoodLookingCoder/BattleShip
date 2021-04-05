@@ -1,3 +1,7 @@
+.battle-cont{
+    animation: 2s ease 0s 1 normal none running fadein;
+}
+
 .boards-battle-container{
     display: flex;
     justify-content: space-evenly;
@@ -18,5 +22,23 @@
 
     &.e{
         color: #a57272;
+    }
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
     }
 }

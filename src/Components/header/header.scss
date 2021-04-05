@@ -1,6 +1,13 @@
 .header{
     text-align: center;
-    margin-top: 20px;
+    padding-top: 20px;
+
+    &.big{
+        img{
+            height: 9rem;
+        }
+    }
+
     img{
         margin: auto;
         height: 4rem;

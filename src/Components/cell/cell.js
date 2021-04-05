@@ -32,8 +32,8 @@ const Cell = ({invalidShot, setInvalidShot, fireAi, type, enemyFire, onFire, pla
                 let hom = enemyFire()
                 setTimeout(()=>{
                     setHitOrMiss(hom)
-                    setInvalidShot(false)
                 }, 1701)
+                setTimeout(()=>setInvalidShot(false), 2300)
             }
         }
      }, [fireAi])
