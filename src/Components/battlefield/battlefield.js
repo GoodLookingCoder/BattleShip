@@ -7,7 +7,7 @@ import {generateRandomLocs} from "./randomLocs"
 
 import "./battlefield.scss"
 
-const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner,name}) => {
+const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner,name, playerHitsInRow, setPlayerHitsInRow, computerHitsInRow, setComputerHitsInRow, playerMissInRow, setPlayerMissInRow, computerMissInRow, setComputerMissInRow, setPlayerAcurrency, setComputerAcurrency, setStatsFirstHit}) => {
     const [shipsLocations] = useState(generateRandomLocs())
     
     const [carrierA] = useState(shipsLocations[0] === shipsLocations[1] - 1 ? "x" : "y" )
@@ -117,9 +117,52 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
 
     const [sunkedShipsList, setSunkedShipsList] = useState([])
 
+    //stats
+    const [mutablePHIR, setMutablePHIR] = useState(0)
+    const [mutableCHIR, setMutableCHIR] = useState(0)
+    const [mutablePMIR, setMutablePMIR] = useState(0)
+    const [mutableCMIR, setMutableCMIR] = useState(0)
+    useEffect(()=>{
+        if(mutablePHIR > playerHitsInRow) {
+            setPlayerHitsInRow(mutablePHIR)
+        }
+    }, [mutablePHIR])
+    useEffect(()=>{
+        if(mutableCHIR > computerHitsInRow) {
+            setComputerHitsInRow(mutableCHIR)
+        }
+    }, [mutableCHIR])
+    useEffect(()=>{
+        if(mutablePMIR > playerMissInRow) {
+            setPlayerMissInRow(mutablePMIR)
+        }
+    }, [mutablePMIR])
+    useEffect(()=>{
+        if(mutableCMIR > computerMissInRow) {
+            setComputerMissInRow(mutableCMIR)
+        }
+    }, [mutableCMIR])
+
+    const [playerNumOfShots, setPlayerNumOfShots] = useState(0)
+    const [playerNumOfHits, setPlayerNumOfHits] = useState(0)
+
+    const [computerNumOfShots, setComputerNumOfShots] = useState(0)
+    const [computerNumOfHits, setComputerNumOfHits] = useState(0)
+
+
+    useEffect(()=>{
+        if(playerNumOfHits === 1 && computerNumOfHits === 0){
+            setStatsFirstHit("player")
+        }else if(playerNumOfHits === 0 && computerNumOfHits === 1){
+            setStatsFirstHit("computer")
+        }
+    }, [playerNumOfHits, computerNumOfHits])
+
     useEffect(()=>{
         console.log(carrierSunk)
         if(carrierSunk && battleshipSunk && destroyerSunk && submarineSunk && patrolSunk){
+            setComputerAcurrency( Math.floor(( computerNumOfHits / computerNumOfShots) * 100))
+            setPlayerAcurrency(Math.floor(( playerNumOfHits / playerNumOfShots) * 100))
             setWinner("Computer")
             setTimeout(()=>setFadeOutAnim(true), 3000)
             setTimeout(()=>setStage("stats"), 4900) 
@@ -127,9 +170,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
     }, [carrierSunk,battleshipSunk,destroyerSunk,submarineSunk,patrolSunk])
 
     useEffect(()=>{
-        console.log("we just sunk a ship")
         if(ecarrierSunk && ebattleshipSunk && edestroyerSunk && esubmarineSunk && epatrolSunk){
- 
+            setPlayerAcurrency(Math.floor(( playerNumOfHits / playerNumOfShots) * 100))
+            setComputerAcurrency( Math.floor(( computerNumOfHits / computerNumOfShots) * 100))
             setWinner("Player")
             setTimeout(()=>setFadeOutAnim(true), 3000)
             
@@ -143,10 +186,14 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
         if(!winner){
         setFirstShot(firstShot + 1)
         playSound("shot", 0.7)
-
+        setPlayerNumOfShots(playerNumOfShots + 1)
         //player
     
         if(shipsLocations.includes(n)){
+            
+            setMutablePHIR(mutablePHIR + 1)
+            setMutablePMIR(0)
+            setPlayerNumOfHits(playerNumOfHits + 1)
             setComments("You fire a Shot into enemys waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
@@ -209,6 +256,8 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }
             vtr = "hit"
         }else{
+            setMutablePHIR(0)
+            setMutablePMIR(mutablePMIR + 1)
             setComments("You fire a shot into enemys waters .... and misses")
             setTimeout(()=>{
                 playSound("miss", 0.7)
@@ -366,8 +415,12 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
 
     const enemyFire = () => {
         let lastShotSunkedShip = false
+        setComputerNumOfShots(computerNumOfShots + 1)
         playSound("shot", 0.7)
         if(friendlyShipsLocations.includes(fireAi)){
+            setMutableCHIR(mutableCHIR + 1)
+            setMutableCMIR(0)
+            setComputerNumOfHits(computerNumOfHits + 1)
             setComments("The enemy fire a shot into your waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
@@ -456,6 +509,8 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
 
             return "hit"
         }else {
+            setMutableCHIR(0)
+            setMutableCMIR(mutableCMIR + 1)
             setLastHit(null)
             setLastShotSunked(false)
             setComments("The enemy fire a Shot into your waters .... and misses")

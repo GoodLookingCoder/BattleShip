@@ -1,0 +1,72 @@
+.stats-cont{
+    width: 600px;
+    margin: auto;
+    animation: 2s ease 0s 1 normal none running fadein;
+
+    & button {
+        width: fit-content;
+        border-style: none;
+        background-color: #0000009e;
+        color: #e0e1de;
+        display: block;
+        padding: 15px 80px;
+        border-radius: 3px;
+        font-size: 25px;
+        font-family: 'Bebas Neue';
+        cursor: pointer;
+        outline: none;
+        margin-top: 45px;
+        
+        margin-left: auto;
+    
+        &:hover{
+            background-color: #8c8c8c;
+            color: black;
+        }
+    }
+
+    .header-sub{
+        font-size: 45px;
+         
+        word-spacing: 0.1em;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color:  #adadad;
+        border-bottom: 1px solid;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .flex-stat-cont{
+        display: flex;
+        border-bottom: 1px solid #adadad5e;;
+    }
+
+    .flex-stat-i{
+        flex: 1;
+
+        p{
+            color:  #adadad;
+            font-size: 35px;
+        }
+    }
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}

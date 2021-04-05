@@ -26,6 +26,13 @@ function App() {
     patrol: {start: null, axis: ""}
   })
   const [winner, setWinner] = useState("")
+  const [playerHitsInRow, setPlayerHitsInRow] = useState(0)
+  const [computerHitsInRow, setComputerHitsInRow] = useState(0)
+  const [playerMissInRow, setPlayerMissInRow] = useState(0)
+  const [computerMissInRow, setComputerMissInRow] = useState(0)
+  const [playerAcurrency, setPlayerAcurrency] = useState(0)
+  const [computerAcurrency, setComputerAcurrency] = useState(0)
+  const [firstHit, setFirstHit] = useState("")
 
   const [volume, setVolume] = useState(true)
 
@@ -128,8 +135,21 @@ function App() {
       <Speaker volume={volume} setVolume={setVolumeProps} />
       {stage==="start"&&<Start name={name} setName={setName} setStage={setStage} />}
       {stage==="placement"&&<Placement name={name} shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
-      {stage==="battle"&&<Battlefield winner={winner} name={name} playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition}/>}
-      {stage==="stats"&&<Stats setStage={setStage} winner={winner} setWinner={setWinner}/>}
+      {stage==="battle"&&<Battlefield playerHitsInRow={playerHitsInRow} setPlayerHitsInRow={setPlayerHitsInRow} computerHitsInRow={computerHitsInRow} setComputerHitsInRow={setComputerHitsInRow} playerMissInRow={playerMissInRow} setPlayerMissInRow={setPlayerMissInRow} computerMissInRow={computerMissInRow} setComputerMissInRow={setComputerMissInRow} winner={winner} name={name} playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition} setPlayerAcurrency={setPlayerAcurrency}  setComputerAcurrency={setComputerAcurrency} firstHit={firstHit} setStatsFirstHit={setFirstHit}/>}
+      {stage==="stats"&&
+        <Stats 
+          name={name}
+          firstHit={firstHit} 
+          computerAcurrancy={computerAcurrency} 
+          playerAcurrancy={playerAcurrency} 
+          computerMissInRow={computerMissInRow} 
+          playerMissInRow={playerMissInRow} 
+          computerHitsInRow={computerHitsInRow} 
+          playerHitsInRow={playerHitsInRow} 
+          setStage={setStage} 
+          winner={winner} 
+          setWinner={setWinner} 
+        />}
       <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
       <audio ref={soundPlayer} />
       <audio ref={soundPlayer2} />
