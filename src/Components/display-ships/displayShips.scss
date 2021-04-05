@@ -55,3 +55,25 @@
         }
     }
 }
+
+@media only screen and (max-width: 1060px) {
+
+    .ships-container{
+        display: flex;
+        background-color: #00000038;
+        width: 550px;
+        margin: auto;
+        margin-bottom: 40px;  
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .ships-container{
+        display: block;
+        background-color: #00000038;
+        width: 80%;
+        margin: auto;
+        margin-bottom: 40px;  
+    }
+}

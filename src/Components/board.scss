@@ -26,4 +26,67 @@
     }
 }
 
+@media only screen and (max-width: 500px) {
+
+    .boards-container{
+        position: relative;
+        width: 100%;
+        flex-basis: 48%;
+        height: 410px;
+ 
+        .board-container{
+           position: absolute;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            left: 0px;
+            right: 0px;
+    
+            .board-grid{
+                display: grid;
+                position: relative;
+                margin: 0px auto;
+                grid-template-rows: repeat(10, 2.5rem);
+                grid-template-columns: repeat(10, 2.5rem);
+                grid-template-areas: none;
+                text-align: center;
+                gap: 1px;
+            }
+        
+        }
+    }
+}
+
+@media only screen and (max-width: 420px) {
+
+    .boards-container{
+        position: relative;
+        width: 100%;
+        flex-basis: 48%;
+        height: 340px;
+    
+        .board-container{
+            position: absolute;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            left: 0px;
+            right: 0px;
+    
+            .board-grid{
+                display: grid;
+                position: relative;
+                margin: 0px auto;
+                grid-template-rows: repeat(10, 2.1rem);
+                grid-template-columns: repeat(10, 2.1rem);
+                grid-template-areas: none;
+                text-align: center;
+                gap: 1px;
+            }
+        
+        }
+    }
+    
+}
+
 

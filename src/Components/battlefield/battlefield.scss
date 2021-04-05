@@ -42,3 +42,42 @@
         opacity: 0;
     }
 }
+
+@media only screen and (max-width: 1000px) {
+    .boards-battle-container{
+        display: block;
+
+        margin-bottom: 20px;
+    }
+
+    .waters{
+        text-align: center;
+        color: #a4a5a6;
+    
+        &.f{
+            color: #728ba5;
+        }
+    
+        &.e{
+            color: #a57272;
+            margin-top: 20px;
+        }
+    }
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .waters{
+        text-align: center;
+        color: #a4a5a6;
+    
+        &.f{
+            margin-top: 40px;
+            color: #728ba5;
+        }
+    
+        &.e{
+            color: #a57272;
+        }
+    }
+}

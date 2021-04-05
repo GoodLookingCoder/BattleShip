@@ -4,13 +4,40 @@ import "./stats.scss"
 import Check from "../check/check" 
 import X from "../x/x";
 
-const Stats = ({name, winner, playerAcurrancy, computerAcurrancy, playerHitsInRow,computerHitsInRow,playerMissInRow,computerMissInRow,firstHit , setWinner,setStage}) => {
+const Stats = (
+    {
+        name, 
+        winner, 
+        playerAcurrancy, 
+        computerAcurrancy, 
+        playerHitsInRow,
+        computerHitsInRow,
+        playerMissInRow,
+        computerMissInRow,
+        firstHit, 
+        setWinner,
+        setStage,
+        setFirstHit,
+        setComputerAcurrency,
+        setPlayerAcurrency,
+        setComputerMissInRow,
+        setPlayerMissInRow,
+        setComputerHitsInRow,
+        setPlayerHitsInRow
+    }) => {
     const [fadeOutAnim, setFadeOutAnim] = useState(false)
 
     const handleReset = () => {
         setFadeOutAnim(true)
         setTimeout(()=>{
             setWinner("")
+            setComputerAcurrency(0)
+            setComputerHitsInRow(0)
+            setComputerMissInRow(0)
+            setFirstHit("")
+            setPlayerAcurrency(0)
+            setPlayerHitsInRow(0)
+            setPlayerMissInRow(0)
             setStage("placement")
         }, 1300)
 

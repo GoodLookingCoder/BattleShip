@@ -33,3 +33,11 @@
         opacity: 0;
     }
 }
+
+@media only screen and (max-width: 1060px) {
+
+    .board-ships-container{
+        display: block;
+        justify-content: space-evenly;
+    }
+}

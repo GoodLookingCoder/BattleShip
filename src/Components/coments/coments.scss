@@ -14,3 +14,16 @@
     min-height: 65px;
 
 }
+
+@media only screen and (max-width: 1000px) {
+    .coments{
+        min-height: 80px;
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .coments{
+       display: none;
+    }
+}

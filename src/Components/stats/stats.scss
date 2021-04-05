@@ -70,3 +70,52 @@
         opacity: 0;
     }
 }
+
+@media only screen and (max-width: 658px) {
+    .stats-cont{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 522px) {
+    .stats-cont{
+        width: 80%;
+
+    button{
+        padding: 10px 60px;
+        font-size: 20px;
+    }
+        
+    .header-sub{
+        font-size: 35px;
+    }
+
+        .flex-stat-i{
+            flex: 1;
+    
+            p{
+                color:  #adadad;
+                font-size: 25px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 379px) {
+    .stats-cont{
+        width: 90%;
+
+        .header-sub{
+            font-size: 30px;
+        }
+
+        .flex-stat-i{
+            flex: 1;
+    
+            p{
+                color:  #adadad;
+                font-size: 20px;
+            }
+        }
+    }
+}

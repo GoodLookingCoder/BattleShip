@@ -292,7 +292,23 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                             setLastHit(csh)
                             setFireAi(csh)
                         }
+                        console.log(csh)
+                        if(csh===undefined){
+                            let rnm = Math.floor(Math.random() * 100)
+        
+                            while(computerShots.includes(rnm)){
+                                rnm = Math.floor(Math.random() * 100)
+                            }
+                            setComputerShots([...computerShots, rnm])
+                
+                            setFireAi(rnm)
+                        }
                     }else{
+                        if(firstShot===1){
+                            setComputerShots([48])
+                            setFireAi(48)
+                            setFirstShot(2)
+                        }else{
                         let rnm = Math.floor(Math.random() * 100)
         
                         while(computerShots.includes(rnm)){
@@ -301,10 +317,11 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                         setComputerShots([...computerShots, rnm])
             
                         setFireAi(rnm)
+                        }
                     }
                 }else{
                     let csh;
-                    if(lastHit + 10 === firstHit || lastHit + 20 === firstHit || lastHit + 30 === firstHit || lastHit - 10 === firstHit || lastHit - 20 === firstHit || lastHit - 30 === firstHit){
+                    if(lastHit + 10 === firstHit || lastHit + 20 === firstHit || lastHit + 30 === firstHit || lastHit + 40 === firstHit || lastHit + 50 === firstHit || lastHit + 60 === firstHit || lastHit + 70 === firstHit || lastHit - 10 === firstHit || lastHit - 20 === firstHit || lastHit - 30 === firstHit || lastHit - 40 === firstHit || lastHit - 50 === firstHit || lastHit - 60 === firstHit || lastHit - 70 === firstHit  ){
                         console.log("verticall trying")
                         if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
                             csh = lastHit - 10;
@@ -336,7 +353,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                                 setFireAi(csh)
                             }
                         }
-                    }else if(lastHit + 1 === firstHit || lastHit + 2 === firstHit || lastHit + 3 === firstHit || lastHit - 1 === firstHit || lastHit - 2 === firstHit || lastHit - 3 === firstHit){
+                    }else if(lastHit + 1 === firstHit || lastHit + 2 === firstHit || lastHit + 3 === firstHit || lastHit + 4 === firstHit || lastHit + 5 === firstHit || lastHit + 6 === firstHit || lastHit + 7 === firstHit || lastHit - 1 === firstHit || lastHit - 2 === firstHit || lastHit - 3 === firstHit || lastHit - 4 === firstHit || lastHit - 5 === firstHit || lastHit - 6 === firstHit || lastHit - 7 === firstHit){
                         if(Number(lastHit.toString()[lastHit.toString().length - 1]) !== 0 && !computerShots.includes(lastHit - 1)){
                             
                             csh = lastHit - 1;
@@ -391,6 +408,17 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                 
                             setFireAi(rnm)
                         }
+                    }
+                    console.log(csh)
+                    if(csh===undefined){
+                        let rnm = Math.floor(Math.random() * 100)
+    
+                        while(computerShots.includes(rnm)){
+                            rnm = Math.floor(Math.random() * 100)
+                        }
+                        setComputerShots([...computerShots, rnm])
+            
+                        setFireAi(rnm)
                     }
                 }
             }, 4500)

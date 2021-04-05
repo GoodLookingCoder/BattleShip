@@ -10,3 +10,9 @@
 		fill: #fff;
 	}
 }
+
+@media only screen and (max-width: 600px) {
+	.speaker{
+		display: none;
+	}
+}

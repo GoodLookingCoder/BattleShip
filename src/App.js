@@ -140,12 +140,19 @@ function App() {
         <Stats 
           name={name}
           firstHit={firstHit} 
+          setFirstHit={setFirstHit}
           computerAcurrancy={computerAcurrency} 
+          setComputerAcurrency={setComputerAcurrency}
           playerAcurrancy={playerAcurrency} 
+          setPlayerAcurrency={ setPlayerAcurrency}
           computerMissInRow={computerMissInRow} 
+          setComputerMissInRow={setComputerMissInRow}
           playerMissInRow={playerMissInRow} 
+          setPlayerMissInRow={setPlayerMissInRow}
           computerHitsInRow={computerHitsInRow} 
+          setComputerHitsInRow={setComputerHitsInRow}
           playerHitsInRow={playerHitsInRow} 
+          setPlayerHitsInRow={setPlayerHitsInRow}
           setStage={setStage} 
           winner={winner} 
           setWinner={setWinner} 
