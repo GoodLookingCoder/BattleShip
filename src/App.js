@@ -157,7 +157,7 @@ function App() {
           winner={winner} 
           setWinner={setWinner} 
         />}
-      <audio onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
+      <audio autoPlay={true} onEnded={() => musicPlayer.current.play()} ref={musicPlayer} />
       <audio ref={soundPlayer} />
       <audio ref={soundPlayer2} />
     </div>
