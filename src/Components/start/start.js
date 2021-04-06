@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 import "./start.scss"
 
-const Start = ({name, setName, setStage}) => {
+const Start = ({name, setName, setStage, userHasInteract, setUserHasInteract}) => {
     const [unalawed, setUnalawed] = useState(false)
     const [fadeOutAnim, setFadeOutAnim] = useState(false)
 
@@ -13,6 +13,12 @@ const Start = ({name, setName, setStage}) => {
         }else{
             setUnalawed(true)
             setTimeout(()=>setUnalawed(false), 3000)
+        }
+    }
+
+    const handleUI = () => {
+        if(!userHasInteract){
+            setUserHasInteract(true)
         }
     }
 
@@ -28,6 +34,7 @@ const Start = ({name, setName, setStage}) => {
                 placeholder="Battleship Combatant" 
                 value={name}
                 onChange={(e)=>setName(e.target.value)}    
+                onFocus={handleUI}
             />
             <button onClick={startGameHandler}>Start Game </button >
         </div>

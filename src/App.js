@@ -35,6 +35,7 @@ function App() {
   const [firstHit, setFirstHit] = useState("")
 
   const [volume, setVolume] = useState(true)
+  const [userHasInteract, setUserHasInteract] = useState(false)
 
   const musicPlayer = useRef();
   const soundPlayer = useRef();
@@ -51,7 +52,7 @@ function App() {
     (sound, customVolume) => {
 
         const newVol = customVolume || 0.5;
-        if (!musicPlayer.current.paused) musicPlayer.current.pause();
+
         musicPlayer.current.src =
           sound === 'music'
             ? music
@@ -59,7 +60,7 @@ function App() {
             ? water
             : null;
 
-        musicPlayer.current.load();
+  
         musicPlayer.current.volume = newVol;
       if(volume){
         musicPlayer.current.play();
@@ -68,14 +69,15 @@ function App() {
     [volume]
   );
 
-  
   useEffect(()=>{
-    if(stage==="start"){
-      console.log("helo")
-      if(musicPlayer.current.paused){
-        playBgSound("music", 0.7)
-      }
-    }else if(stage==="battle"){
+    if (userHasInteract) {
+      console.log("userHasInteract:" + userHasInteract)
+      playBgSound("music", 0.7)
+    }
+  }, [userHasInteract])
+
+  useEffect(()=>{
+    if(stage==="battle"){
       fadeOutMusic()
       setTimeout(()=>{
         playBgSound("water", 0.7)
@@ -133,7 +135,7 @@ function App() {
     <div className="App">
       <Header stage={stage}/>
       <Speaker volume={volume} setVolume={setVolumeProps} />
-      {stage==="start"&&<Start name={name} setName={setName} setStage={setStage} />}
+      {stage==="start"&&<Start userHasInteract={userHasInteract} setUserHasInteract={setUserHasInteract} name={name} setName={setName} setStage={setStage} />}
       {stage==="placement"&&<Placement name={name} shipsStartPosition={shipsStartPosition} setShipsStartPositions={setShipsStartPositions} setStage={setStage}/>}
       {stage==="battle"&&<Battlefield playerHitsInRow={playerHitsInRow} setPlayerHitsInRow={setPlayerHitsInRow} computerHitsInRow={computerHitsInRow} setComputerHitsInRow={setComputerHitsInRow} playerMissInRow={playerMissInRow} setPlayerMissInRow={setPlayerMissInRow} computerMissInRow={computerMissInRow} setComputerMissInRow={setComputerMissInRow} winner={winner} name={name} playSound={playSound} setStage={setStage} setWinner={setWinner} shipsStartPosition={shipsStartPosition} setPlayerAcurrency={setPlayerAcurrency}  setComputerAcurrency={setComputerAcurrency} firstHit={firstHit} setStatsFirstHit={setFirstHit}/>}
       {stage==="stats"&&
