@@ -49,7 +49,6 @@ const Board = ({
         if(selectedShip==="carrier"){
             if(isAllowed(n, 5, axis, shipLocations)){
                 if(axis==="x"){
-                    console.log(shipLocations)
                     setShipLocations([...shipLocations, n, n+1, n+2, n+3, n+4])
                     setShipsStartPositions({...shipsStartPosition, carrier: {start: n, axis: "x"}})
                 }

@@ -73,7 +73,6 @@ function App() {
 
   useEffect(()=>{
     if (userHasInteract) {
-      console.log("userHasInteract:" + userHasInteract)
       playBgSound("music", 0.7)
     }
   }, [userHasInteract])

@@ -159,7 +159,6 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
     }, [playerNumOfHits, computerNumOfHits])
 
     useEffect(()=>{
-        console.log(carrierSunk)
         if(carrierSunk && battleshipSunk && destroyerSunk && submarineSunk && patrolSunk){
             setComputerAcurrency( Math.floor(( computerNumOfHits / computerNumOfShots) * 100))
             setPlayerAcurrency(Math.floor(( playerNumOfHits / playerNumOfShots) * 100))
@@ -292,7 +291,6 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                             setLastHit(csh)
                             setFireAi(csh)
                         }
-                        console.log(csh)
                         if(csh===undefined){
                             let rnm = Math.floor(Math.random() * 100)
         
@@ -322,16 +320,12 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                 }else{
                     let csh;
                     if(lastHit + 10 === firstHit || lastHit + 20 === firstHit || lastHit + 30 === firstHit || lastHit + 40 === firstHit || lastHit + 50 === firstHit || lastHit + 60 === firstHit || lastHit + 70 === firstHit || lastHit - 10 === firstHit || lastHit - 20 === firstHit || lastHit - 30 === firstHit || lastHit - 40 === firstHit || lastHit - 50 === firstHit || lastHit - 60 === firstHit || lastHit - 70 === firstHit  ){
-                        console.log("verticall trying")
                         if(Number(lastHit.toString().length) !== 1 && !computerShots.includes(lastHit - 10)){
                             csh = lastHit - 10;
                             setComputerShots([...computerShots, csh])
                             setFireAi(csh)
                         }else{
-                            console.log("no up ")
                             if((computerShots.includes(lastHit + 10) || lastHit + 10 >= 100) && (computerShots.includes(firstHit + 10) || firstHit + 10 >= 100)){
-                                console.log("Aleatory sorry no othe option")
-                                console.log("a")
                                 
                                 let rnm = Math.floor(Math.random() * 100)
         
@@ -342,12 +336,10 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                     
                                 setFireAi(rnm)
                             }else if(computerShots.includes(lastHit + 10) || lastHit + 10 >= 100 ){
-                                console.log("b")
                                 csh = firstHit + 10;
                                 setComputerShots([...computerShots, csh])
                                 setFireAi(csh)
                             }else{
-                                console.log("c")
                                 csh = lastHit + 10;
                                 setComputerShots([...computerShots, csh])
                                 setFireAi(csh)
@@ -362,7 +354,6 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
         
                         }else{
                             if((computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9) && (computerShots.includes(firstHit + 1) || Number(firstHit.toString()[firstHit.toString().length - 1]) === 9)){
-                                console.log("Aleatory sorry no othe option")
                                 let rnm = Math.floor(Math.random() * 100)
         
                                 while(computerShots.includes(rnm)){
@@ -409,7 +400,6 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                             setFireAi(rnm)
                         }
                     }
-                    console.log(csh)
                     if(csh===undefined){
                         let rnm = Math.floor(Math.random() * 100)
     
@@ -428,8 +418,6 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
 
   
     useEffect(()=>{
-        console.log(hitsOnTheGo)
-        console.log(lastShotSunked)
         if( lastShotSunked){
             if(hitsOnTheGo.length){
                 setFirstHit(hitsOnTheGo[0])

@@ -22,7 +22,6 @@ const Cell = ({invalidShot, setInvalidShot, fireAi, type, enemyFire, onFire, pla
     const handleCellHover2 = () => {
         if(!hasBennClicked){
             setIsHovered(true)
-            console.log("ededed")
         }
     }
     
