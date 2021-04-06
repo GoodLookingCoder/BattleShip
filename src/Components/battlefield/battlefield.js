@@ -113,7 +113,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
     const [invalidShot, setInvalidShot] = useState(false)
 
     const [fadeOutAnim, setFadeOutAnim] = useState(false)
-    const [comments, setComments] = useState(`Awating orders, Capitan ${name}`)
+    const [comments, setComments] = useState(`Awaiting orders, ${name.toLowerCase().includes("c")? "Capitana" :"Captain"} ${name}`)
 
     const [sunkedShipsList, setSunkedShipsList] = useState([])
 
@@ -193,14 +193,14 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             setMutablePHIR(mutablePHIR + 1)
             setMutablePMIR(0)
             setPlayerNumOfHits(playerNumOfHits + 1)
-            setComments("You fire a Shot into enemys waters.... and its a Hit!!")
+            setComments("You fire a Shot into enemy waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
             }, 1500)
             if(carrierHits.length !== 5 && carrierLocations.includes(n)){
                 setCarrierHits([...carrierHits, "hit"])
                 if(carrierHits.length===4){
-                    setComments("You fire a Shot into enemys waters.... You sunk their Carrier!!")
+                    setComments("You fire a Shot into enemy waters.... You sunk their Carrier!!")
                     setTimeout(()=>{
                         setDisplayAiShips({...displayAiShips, carrier: true}) 
                     }, 1600)
@@ -211,7 +211,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(battleshipHits.length !== 4 && battleshipLocations.includes(n)){
                 setBattleshipHits([...battleshipHits, "hit"])
                 if(battleshipHits.length===3){
-                    setComments("You fire a Shot into enemys waters.... You sunk their Battleship!!")
+                    setComments("You fire a Shot into enemy waters.... You sunk their Battleship!!")
                     setTimeout(()=>{
                         setDisplayAiShips({...displayAiShips, battleship: true})
                     }, 1600)
@@ -222,7 +222,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(destroyerHits.length !== 3 && destroyerLocations.includes(n)){
                 setDestroyerHits([...destroyerHits, "hit"])
                 if(destroyerHits.length===2){
-                    setComments("You fire a Shot into enemys waters.... You sunk their Destroyer!!")
+                    setComments("You fire a Shot into enemy waters.... You sunk their Destroyer!!")
                     setTimeout(()=>{
                         setDisplayAiShips({...displayAiShips, destroyer: true})
                     }, 1600)
@@ -233,7 +233,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(submarineHits.length !== 3 && submarineLocations.includes(n)){
                 setSubmarineHits([...submarineHits, "hit"])
                 if(submarineHits.length===2){
-                    setComments("You fire a Shot into enemys waters.... You sunk their Submarine!!")
+                    setComments("You fire a Shot into enemy waters.... You sunk their Submarine!!")
                     setTimeout(()=>{
                         setDisplayAiShips({...displayAiShips, submarine: true})
                     }, 1600)
@@ -244,7 +244,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(patrolHits.length !== 2 && patrolLocations.includes(n)){
                 setPatrolHits([...patrolHits, "hit"])        
                 if(patrolHits.length===1){
-                    setComments("You fire a Shot into enemys waters.... You sunk their Patrol!!")
+                    setComments("You fire a Shot into enemy waters.... You sunk their Patroll!!")
                     setTimeout(()=>{
                         setDisplayAiShips({...displayAiShips, patrol: true})
                     }, 1600)
@@ -257,7 +257,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
         }else{
             setMutablePHIR(0)
             setMutablePMIR(mutablePMIR + 1)
-            setComments("You fire a shot into enemys waters .... and misses")
+            setComments("You fire a shot into enemy waters............ and miss")
             setTimeout(()=>{
                 playSound("miss", 0.7)
             }, 1500)  
@@ -267,6 +267,9 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
 
         //computer ai
         if(!noYouCantShot && !winner){
+            console.log(firstHit)
+            console.log(lastHit)
+            console.log("break")
             setTimeout(()=>{
                 setComments("Your opponent is aiming....")
             }, 3000)
@@ -292,21 +295,22 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                             setFireAi(csh)
                         }
                         if(csh===undefined){
-                            let rnm = Math.floor(Math.random() * 100)
+                            csh = Math.floor(Math.random() * 100)
         
-                            while(computerShots.includes(rnm)){
-                                rnm = Math.floor(Math.random() * 100)
+                            while(computerShots.includes(csh)){
+                                csh = Math.floor(Math.random() * 100)
                             }
-                            setComputerShots([...computerShots, rnm])
-                
-                            setFireAi(rnm)
+                            setComputerShots([...computerShots, csh])
+                            console.log("Last hit not defined and not posible near first hit")
+                            setFireAi(csh)
+                            setHitsOnTheGo(hitsOnTheGo.filter((item, index) => index !== 0))
                         }
                     }else{
-                        if(firstShot===1){
-                            setComputerShots([48])
-                            setFireAi(48)
+                        /*if(firstShot===1){
+                            setComputerShots([46])
+                            setFireAi(46)
                             setFirstShot(2)
-                        }else{
+                        }else{*/
                         let rnm = Math.floor(Math.random() * 100)
         
                         while(computerShots.includes(rnm)){
@@ -315,7 +319,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                         setComputerShots([...computerShots, rnm])
             
                         setFireAi(rnm)
-                        }
+                        /*}*/
                     }
                 }else{
                     let csh;
@@ -327,14 +331,14 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                         }else{
                             if((computerShots.includes(lastHit + 10) || lastHit + 10 >= 100) && (computerShots.includes(firstHit + 10) || firstHit + 10 >= 100)){
                                 
-                                let rnm = Math.floor(Math.random() * 100)
+                                csh = Math.floor(Math.random() * 100)
         
-                                while(computerShots.includes(rnm)){
-                                    rnm = Math.floor(Math.random() * 100)
+                                while(computerShots.includes(csh)){
+                                    csh = Math.floor(Math.random() * 100)
                                 }
-                                setComputerShots([...computerShots, requestAnimationFrame])
+                                setComputerShots([...computerShots, csh])
                     
-                                setFireAi(rnm)
+                                setFireAi(csh)
                             }else if(computerShots.includes(lastHit + 10) || lastHit + 10 >= 100 ){
                                 csh = firstHit + 10;
                                 setComputerShots([...computerShots, csh])
@@ -354,14 +358,14 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
         
                         }else{
                             if((computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9) && (computerShots.includes(firstHit + 1) || Number(firstHit.toString()[firstHit.toString().length - 1]) === 9)){
-                                let rnm = Math.floor(Math.random() * 100)
+                                csh = Math.floor(Math.random() * 100)
         
-                                while(computerShots.includes(rnm)){
-                                    rnm = Math.floor(Math.random() * 100)
+                                while(computerShots.includes(csh)){
+                                    csh = Math.floor(Math.random() * 100)
                                 }
-                                setComputerShots([...computerShots, rnm])
+                                setComputerShots([...computerShots, csh])
                     
-                                setFireAi(rnm)
+                                setFireAi(csh)
                             }else if(computerShots.includes(lastHit + 1) || Number(lastHit.toString()[lastHit.toString().length - 1]) === 9){
                                 csh = firstHit + 1;
                                 setComputerShots([...computerShots, csh])
@@ -390,25 +394,25 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                             setComputerShots([...computerShots, csh])
                             setFireAi(csh)
                         }else{
-                            let rnm = Math.floor(Math.random() * 100)
+                            csh = Math.floor(Math.random() * 100)
         
-                            while(computerShots.includes(rnm)){
-                                rnm = Math.floor(Math.random() * 100)
+                            while(computerShots.includes(csh)){
+                                csh = Math.floor(Math.random() * 100)
                             }
                             setComputerShots([...computerShots, csh])
                 
-                            setFireAi(rnm)
+                            setFireAi(csh)
                         }
                     }
                     if(csh===undefined){
-                        let rnm = Math.floor(Math.random() * 100)
+                        csh = Math.floor(Math.random() * 100)
     
-                        while(computerShots.includes(rnm)){
-                            rnm = Math.floor(Math.random() * 100)
+                        while(computerShots.includes(csh)){
+                            csh = Math.floor(Math.random() * 100)
                         }
-                        setComputerShots([...computerShots, rnm])
+                        setComputerShots([...computerShots, csh])
             
-                        setFireAi(rnm)
+                        setFireAi(csh)
                     }
                 }
             }, 4500)
@@ -427,6 +431,10 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
                 setLastHit(null)
             }
         }
+        if(hitsOnTheGo.length && firstHit!==hitsOnTheGo[0]){
+            setFirstHit(hitsOnTheGo[0])
+            setLastHit(hitsOnTheGo[0])
+        }
     }, [hitsOnTheGo])
 
     const enemyFire = () => {
@@ -437,7 +445,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             setMutableCHIR(mutableCHIR + 1)
             setMutableCMIR(0)
             setComputerNumOfHits(computerNumOfHits + 1)
-            setComments("The enemy fire a shot into your waters.... and its a Hit!!")
+            setComments("The enemy fires a shot into your waters.... and its a Hit!!")
             setTimeout(()=>{
                 playSound("hit", 0.7)
             }, 1500)
@@ -445,7 +453,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             if(fcarrierHits.length !== 5 && fcarrierLocations.includes(fireAi)){
                 setFcarrierHits([...fcarrierHits, "hit"])
                 if(fcarrierHits.length===4){
-                    setComments("The enemy fire a shot into your waters.... they sunk your Carrier")
+                    setComments("The enemy fires a shot into your waters.... they sunk your Carrier")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fcarrierLocations.includes(x)))
@@ -459,7 +467,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(fbattleshipHits.length !== 4 && fbattleshipLocations.includes(fireAi)){
                 setFbattleshipHits([...fbattleshipHits, "hit"])
                 if(fbattleshipHits.length===3){
-                    setComments("The enemy fire a shot into your waters.... they sunk your Battleship")
+                    setComments("The enemy fires a shot into your waters.... they sunk your Battleship")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fbattleshipLocations.includes(x)))
@@ -473,7 +481,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(fdestroyerHits.length !== 3 && fdestroyerLocations.includes(fireAi)){
                 setFdestroyerHits([...fdestroyerHits, "hit"])
                 if(fdestroyerHits.length===2){
-                    setComments("The enemy fire a shot into your waters.... they sunk your Destroyer")
+                    setComments("The enemy fires a shot into your waters.... they sunk your Destroyer")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fdestroyerLocations.includes(x)))
@@ -487,7 +495,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(fsubmarineHits.length !== 3 && fsubmarineLocations.includes(fireAi)){
                 setFsubmarineHits([...fsubmarineHits, "hit"])
                 if(fsubmarineHits.length===2){
-                    setComments("The enemy fire a shot into your waters.... they sunk your Submarine")
+                    setComments("The enemy fires a shot into your waters.... they sunk your Submarine")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fsubmarineLocations.includes(x)))
@@ -501,7 +509,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             }else if(fpatrolHits.length !== 2 && fpatrolLocations.includes(fireAi)){
                 setFpatrolHits([...fpatrolHits, "hit"])           
                 if(fpatrolHits.length===1){
-                    setComments("The enemy fire a shot into your waters.... they sunk your Patrol")
+                    setComments("The enemy fires a shot into your waters.... they sunk your Patroll")
                     lastShotSunkedShip = true
                     setLastShotSunked(true)
                     setHitsOnTheGo(hitsOnTheGo.filter(x => !fpatrolLocations.includes(x)))
@@ -529,7 +537,7 @@ const Battlefield = ({shipsStartPosition, setWinner, setStage, playSound, winner
             setMutableCMIR(mutableCMIR + 1)
             setLastHit(null)
             setLastShotSunked(false)
-            setComments("The enemy fire a Shot into your waters .... and misses")
+            setComments("The enemy fires a Shot into your waters .... and misses")
             setTimeout(()=>{
                 playSound("miss", 0.7)
             }, 1500)  

@@ -5,7 +5,6 @@ const Carrier = ({startPosition, axis, hasCarrierPlaced, display, sunk}) => {
         {startPosition !== null && <div
             style={{
                 display: "flex",
-                border: "1px solid rgb(221, 221, 221)",
                 height: "100%",
                 gridArea: getRowAndColumn(startPosition, axis, 5)
             }}

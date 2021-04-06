@@ -17,7 +17,7 @@ const ShipsContainer = ({
     return (
         <div className="ships-container">
             <div className="explination-fl">
-                <p>- Click over a Ship to select it</p>
+                <p>- Select a ship by clicking it</p>
                 <p>- Place it by clicking on the Board</p>
                 <p>- Click the AXIS button to change the orientation of the ships</p>
                 <p>- Click the RANDOMLY button to place your ships in random locations</p>
@@ -127,7 +127,7 @@ const ShipsContainer = ({
                         </svg>
                     </div>
                 </div>
-                <p >Patrol: </p>
+                <p >Patroll: </p>
                 <div style={{borderBottom: "none"}} className="ship patrol">
                     <div
                         style={{

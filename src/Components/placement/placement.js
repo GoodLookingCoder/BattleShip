@@ -43,7 +43,7 @@ const Placement = ({setStage, name, shipsStartPosition, setShipsStartPositions, 
             className="placement-cont"
             style={fadeOutAnim? {animation: " 2s ease 0s 1 normal none running fadeout"}: null}      
         >
-            <h2 className="header-subtitle">Place your ships captan {name}</h2>
+            <h2 className="header-subtitle">Place your ships {name.toLowerCase().includes("c")? "Capitana" :"Captain"} {name}</h2>
             <div className="board-ships-container">
                 <ShipsContainer 
                     hasCarrierPLaced={hasCarrierPLaced}
