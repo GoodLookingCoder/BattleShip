@@ -92,7 +92,7 @@ function App() {
 
 
   useEffect(()=>{
-    if (musicPlayer.current.paused){
+    if (musicPlayer.current.paused && userHasInteract){
       musicPlayer.current.play();
     }
   }, [volume])
