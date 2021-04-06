@@ -52,7 +52,9 @@ function App() {
     (sound, customVolume) => {
 
         const newVol = customVolume || 0.5;
-
+        if (!musicPlayer.current.paused ){
+          musicPlayer.current.pause();
+        }
         musicPlayer.current.src =
           sound === 'music'
             ? music
@@ -60,7 +62,7 @@ function App() {
             ? water
             : null;
 
-  
+        musicPlayer.current.load();
         musicPlayer.current.volume = newVol;
       if(volume){
         musicPlayer.current.play();
