@@ -1,5 +1,7 @@
 # BattleShip
-This is the traditional BattleShip game made with React and SASS
+This is the traditional BattleShip game. Users can place their ships either manually or at random locations 
+and battle against the computer AI. Once the game is finished they can see the statistics of the battle.  
+
 [View Live](https://battleship-glc.herokuapp.com/)
 
 # Getting Started with Create React App
