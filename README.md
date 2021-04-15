@@ -1,4 +1,4 @@
-#BattleShip
+# BattleShip
 This is the traditional BattleShip game made with React and SASS
 [View Live](https://battleship-glc.herokuapp.com/)
 
